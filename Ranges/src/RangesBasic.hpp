@@ -104,6 +104,6 @@ inline void CustomTakeView_Test()
 	{
 		std::printf("%d ", elem);
 	}
-
+	//
 	std::puts("");
 }
