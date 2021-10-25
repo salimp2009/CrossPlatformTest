@@ -17,5 +17,5 @@ int main()
 	IsConstEvaluated_Test();
 	CustomTakeView_Test();
 
-	
+	//
 }

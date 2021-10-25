@@ -4,6 +4,9 @@
 #include "RangeUtils.hpp"
 #include "CustomTakeView.hpp"
 
+// Clang-13 has incomplete in Ranges gives error gcc and msvc is mostly OK;
+
+
 inline void RangesBasics()
 {
 	std::puts("---RangesBasics---");
@@ -104,6 +107,6 @@ inline void CustomTakeView_Test()
 	{
 		std::printf("%d ", elem);
 	}
-	//
+	
 	std::puts("");
 }

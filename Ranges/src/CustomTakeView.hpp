@@ -1,6 +1,8 @@
 #pragma once
 #include "RangesHeaders.hpp"
 
+
+
 //std::ranges::view is a concept in rangers header 
 template<std::ranges::view R>
 class custom_take_view :public std::ranges::view_interface<custom_take_view<R>>
@@ -63,7 +65,15 @@ namespace details
 		}
 	};
 
+	template<std::ranges::viewable_range R, std::invocable<R> Adaptor>
+	constexpr auto operator | (R&& r, const Adaptor adaptor)
+	{
+		return adaptor(std::forward<R>(r));
+	}
+
 } // end of namespace details
 
-
-
+namespace view
+{
+	inline details::custom_take_range_adaptor custom_take;
+}
