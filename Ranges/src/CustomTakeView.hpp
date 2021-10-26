@@ -43,7 +43,7 @@ namespace details
 
 		// To allow this to be called with a range
 		template<std::ranges::viewable_range R>
-		constexpr auto operator()(R&& r)
+		constexpr auto operator()(R&& r) const
 		{
 			return custom_take_view(std::forward<R>(r), mCount);
 		}
@@ -52,7 +52,7 @@ namespace details
 	struct custom_take_range_adaptor
 	{
 		template<typename... Args>
-		constexpr auto operator()(Args&&... args)
+		constexpr auto operator()(Args&&... args) 
 		{
 			if constexpr(sizeof...(Args) == 1)
 			{
@@ -75,5 +75,8 @@ namespace details
 
 namespace view
 {
+	// if constexpr is used below then range adaptor operator() has to be const as well !
+	// check if constexpr is beneficial ; which it should be
 	inline details::custom_take_range_adaptor custom_take;
+
 }

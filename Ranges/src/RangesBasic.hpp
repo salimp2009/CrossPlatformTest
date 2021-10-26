@@ -109,4 +109,22 @@ inline void CustomTakeView_Test()
 	}
 	
 	std::puts("");
+
+	auto Iseven = [](const auto& elem) { return elem % 2 == 0; };
+
+	auto rng = numbers | std::ranges::views::filter(Iseven) | view::custom_take(2);
+
+	auto rng2 = numbers | view::custom_take(4);
+
+	std::puts("print first 2 Even elems");
+	std::ranges::copy(rng, std::ostream_iterator<int>(std::cout, " "));
+	
+	std::puts("\nprint first 4 elems ");
+	std::ranges::copy(rng2, std::ostream_iterator<int>(std::cout, " "));
+
+	std::puts("\nPrinting with for-loop ");
+	for (const auto& elem : numbers | std::ranges::views::filter(Iseven) | view::custom_take(2))
+	{
+		std::printf("%d ", elem);
+	}
 }

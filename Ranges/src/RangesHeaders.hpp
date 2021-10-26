@@ -1,6 +1,7 @@
 #pragma
 
 #include <cstdio>
+#include <iostream>
 #include <type_traits>
 #include <span>
 #include <array>
