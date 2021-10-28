@@ -9,3 +9,4 @@
 #include <ranges>
 #include <algorithm>
 #include <numeric>
+#include <memory>

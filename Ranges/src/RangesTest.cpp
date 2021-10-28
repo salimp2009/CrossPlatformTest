@@ -1,6 +1,7 @@
 #include "RangesHeaders.hpp"
 #include "Span/SpanTest.hpp"
 #include "RangesBasic.hpp"
+#include "RangesUseCases.hpp"
 
 
 
@@ -16,6 +17,7 @@ int main()
 	RangeAdoptors();
 	IsConstEvaluated_Test();
 	CustomTakeView_Test();
+	RangesSort_Strings();
 
 	//
 }

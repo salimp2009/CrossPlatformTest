@@ -13,6 +13,9 @@ inline void RangesBasics()
 
 	auto vec1 = std::vector{ 3,4,6,5, 7,9 };
 
+	// ranges return a std::default_sentinel_t  for the type of end iterator. But std::accumulate algorith expect a comman_range which has the same type for begin an end
+	// By adding std::views::common we convert range to return a common_range so we can use in regular STL algorithms
+	// any ranges algorithm dont need that conversion
 	auto range1 = vec1 | std::views::take_while([](int x) { return x < 5; }) | std::views::common;
 
 	for (const auto& value : range1)
@@ -127,4 +130,6 @@ inline void CustomTakeView_Test()
 	{
 		std::printf("%d ", elem);
 	}
+
+	std::puts("");
 }
