@@ -17,4 +17,5 @@ int main()
 	RangesSort_Strings();
 	RangesSentinels_NullTermin();
 	RangesSubRanges_Sentinels();
+	RangesSentinels_EndValue();
 }

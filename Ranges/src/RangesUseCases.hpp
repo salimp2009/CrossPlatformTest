@@ -1,7 +1,7 @@
 #pragma once
 //#include "RangesHeaders.hpp"
 
-
+#if defined __GNUG__ || defined _MSVC_VER
 
 inline void RangesSort_Strings()
 {
@@ -10,6 +10,7 @@ inline void RangesSort_Strings()
 	std::vector<std::string> coll{ "Rio", "Istanbul", "New York", "Berlin"};
 
 	std::ranges::sort(coll);
+	
 
 	std::puts("After sorting!");
 	for (const auto& city : coll)
@@ -77,5 +78,12 @@ inline void RangesSubRanges_Sentinels()
 	}
 
 	std::puts("");
-
 }
+
+inline void RangesSentinels_EndValue()
+{
+	std::puts("---RangesSentinels_EndValue---");
+
+	subrange 
+
+#endif 

@@ -25,3 +25,12 @@ struct NullTerm
 		return *pos == '\0';
 	}
 };
+
+template<auto EndVal>
+struct EndValue
+{
+	bool operator==(auto pos) const
+	{
+		return *pos == EndVal;
+	}
+};
