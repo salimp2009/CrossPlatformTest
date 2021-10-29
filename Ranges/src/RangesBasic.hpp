@@ -3,6 +3,7 @@
 #include "RangesHeaders.hpp"
 #include "RangeUtils.hpp"
 #include "CustomTakeView.hpp"
+#include "RangesUseCases.hpp"
 
 // Clang-13 has incomplete in Ranges gives error gcc and msvc is mostly OK;
 

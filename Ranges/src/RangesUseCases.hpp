@@ -1,15 +1,7 @@
 #pragma once
-#include "RangesHeaders.hpp"
+//#include "RangesHeaders.hpp"
 
-bool funcTrue()
-{
-	return true;
-}
 
-bool funcFalse()
-{
-	return false;
-}
 
 inline void RangesSort_Strings()
 {
@@ -47,4 +39,43 @@ inline void RangesSort_Strings()
 			printf("Failure!!!\n");
 		}
 	}
+
+	auto functList2 = { funcTrue, funcFalse };
+
+	for (const auto& res : functList2 | std::views::filter([](auto&& f) {return f() == false; }))
+	{
+		if (anyFailure)
+		{
+			printf("Failure!!!\n");
+		}
+	}
+}
+
+inline void RangesSentinels_NullTermin()
+{
+	std::puts("---RangesSentinels_NullTermin---");
+
+	const char* rawString = "watching CppCon2021";
+
+	std::ranges::for_each(rawString, NullTerm{}, [](auto elem) {std::printf("%c ", elem); });
+}
+
+inline void RangesSubRanges_Sentinels()
+{
+	std::puts("---RangesSubRanges_Sentinels---");
+	
+	const char* rawString2 = "Hello my friend Demir...!";
+
+	auto RawStrRange = std::ranges::subrange(rawString2, NullTerm{});
+
+	std::ranges::for_each(RawStrRange, [](auto&& elem) { std::printf("%c ", elem); } );
+
+	std::puts("");
+	for (auto c : RawStrRange)
+	{
+		std::printf("%c ", c);
+	}
+
+	std::puts("");
+
 }
