@@ -18,4 +18,5 @@ int main()
 	RangesSentinels_NullTermin();
 	RangesSubRanges_Sentinels();
 	RangesSentinels_EndValue();
+	Ranges_BeginCount();
 }

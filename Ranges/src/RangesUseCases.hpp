@@ -1,5 +1,5 @@
 #pragma once
-//#include "RangesHeaders.hpp"
+#include "RangesHeaders.hpp"
 
 #if defined __GNUG__ || defined _MSVC_VER
 
@@ -23,8 +23,9 @@ inline void RangesSort_Strings()
 	std::printf("%s \n", coll[1].c_str());
 	std::puts("");
 
-	
-	 auto anyFailure = std::ranges::any_of(std::initializer_list{ funcTrue, funcFalse }, [](auto&& f) {return f()==false; });
+
+	auto functList0 = { funcTrue, funcFalse };
+	auto anyFailure = std::ranges::any_of(functList0, [](auto&& f) {return f()==false; });
 	if (anyFailure)
 	{
 		printf("Failure!!!\n");
@@ -84,6 +85,44 @@ inline void RangesSentinels_EndValue()
 {
 	std::puts("---RangesSentinels_EndValue---");
 
-	subrange 
+	std::vector nums = { 50, 415, 10, -3, -1 }; 
+
+	// Note begin() iterator needs to be first ofr STL containers; in the previous exam we used a C-String( const char*) which is the beginning of the string!!
+	std::ranges::subrange rangeInt{ nums.begin(), EndValue<10>{} };
+	
+	
+	for (auto elem : rangeInt)
+	{
+		std::printf("%d ", elem);
+	}
+	std::puts("");
+}
+
+
+inline void Ranges_BeginCount()
+{
+	std::puts("---Ranges_BeginCount---");
+
+	const std::vector<int> nums = { 1,2,3,4,5,6,7,8,9};
+
+	// this gives the position of required value in the container
+	auto posFive = std::ranges::find(nums, 5);
+
+	int countValue = 3;
+
+	//check if (current position + count value) is not greater then container.end()
+	// if the countValue + currentPos > container.end() then it is UB because you are accessing beyond the end of container 
+	// if count = 0 then the range will be empty
+	// Note: distance check can be EXPENSIVE if the container does not have random access iterator
+	if (std::ranges::distance(posFive, nums.end()) >= countValue)
+	{
+		for (auto value : std::views::counted(posFive, countValue))
+		{
+			std::printf("%i ", value);
+		}
+	}
+
+}
+
 
 #endif 
