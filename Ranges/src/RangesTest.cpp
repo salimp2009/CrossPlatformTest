@@ -19,4 +19,5 @@ int main()
 	RangesSubRanges_Sentinels();
 	RangesSentinels_EndValue();
 	Ranges_BeginCount();
+	Ranges_Projections();
 }

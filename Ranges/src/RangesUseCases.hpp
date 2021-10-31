@@ -122,7 +122,23 @@ inline void Ranges_BeginCount()
 		}
 	}
 
+	std::puts("");
 }
 
+
+inline void Ranges_Projections()
+{
+	std::puts("---Ranges_Projections---");
+	std::vector<int> nums = { 25, 49, 0, -1, 125, 15, 17};
+
+	std::ranges::sort(nums, std::less{}, [](auto val) { return std::abs(val); });
+	for (const auto& val : nums)
+	{
+		std::printf("%i ", val);
+	}
+
+	std::puts("");
+
+}
 
 #endif 
