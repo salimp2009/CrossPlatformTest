@@ -20,4 +20,5 @@ int main()
 	RangesSentinels_EndValue();
 	Ranges_BeginCount();
 	Ranges_Projections();
+	RangesSort_Strings();
 }

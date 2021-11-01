@@ -13,6 +13,7 @@ add_library(RangesTest
 		src/Span/SpanUtils.hpp
 		src/CustomTakeView.hpp
 		src/RangesUseCases.hpp
+		src/RangesViewsAdaptor.hpp
 )
 
 target_include_directories(RangesTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")

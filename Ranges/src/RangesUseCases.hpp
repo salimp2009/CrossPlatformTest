@@ -1,7 +1,7 @@
 #pragma once
 #include "RangesHeaders.hpp"
 
-#if defined __GNUG__ || defined _MSVC_VER
+#if defined __GNUG__  || defined _MSC_VER || !defined(__clang__)
 
 inline void RangesSort_Strings()
 {
@@ -11,7 +11,6 @@ inline void RangesSort_Strings()
 
 	std::ranges::sort(coll);
 	
-
 	std::puts("After sorting!");
 	for (const auto& city : coll)
 	{
@@ -131,6 +130,7 @@ inline void Ranges_Projections()
 	std::puts("---Ranges_Projections---");
 	std::vector<int> nums = { 25, 49, 0, -1, 125, 15, 17};
 
+	std::puts("");
 	std::ranges::sort(nums, std::less{}, [](auto val) { return std::abs(val); });
 	for (const auto& val : nums)
 	{

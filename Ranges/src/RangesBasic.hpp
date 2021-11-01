@@ -4,6 +4,7 @@
 #include "RangeUtils.hpp"
 #include "CustomTakeView.hpp"
 #include "RangesUseCases.hpp"
+#include "RangesViewsAdaptor.hpp"
 
 // Clang-13 has incomplete in Ranges gives error gcc and msvc is mostly OK;
 
@@ -65,7 +66,13 @@ inline void RangesViews_Filter()
 	{
 		std::printf("%d ", number);
 	}
-	std::puts("");
+	std::puts("\nOriginal vector after views transform:");
+
+	for (const auto& number : numbers)
+	{
+		std::printf("%d ", number);
+	}
+
 }
 
 inline void RangeAdoptors()
