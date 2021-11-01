@@ -21,4 +21,5 @@ int main()
 	Ranges_BeginCount();
 	Ranges_Projections();
 	RangesSort_Strings();
+	
 }
