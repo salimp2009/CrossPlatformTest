@@ -6,6 +6,7 @@
 int main()
 {
 	std::puts("Hello Ranges\n");
+#if defined __GNUG__  || defined _MSC_VER && !defined(__clang__)
 
 	SpanConstness_Test();
 	RangesBasics();
@@ -23,5 +24,6 @@ int main()
 	RangesSort_Strings();
 	RangesAdaptors_all();
 	Ranges_LazyEval();
-	
+
+#endif
 }

@@ -62,7 +62,27 @@ inline void Ranges_LazyEval()
 {
 	std::puts("---Ranges_LazyEval---");
 
+	std::vector vec = { 28, 35, 0, 45, 13 };
 
+	auto vecView = vec 
+		| std::views::filter([](auto&& elem) 
+			{ 
+					std::printf("filter: %i\n", elem);
+					return elem % 2 == 0; 
+			})
+		| std::views::transform([] (auto&& elem)
+			{
+				std::printf("transform: %i \n", elem);
+				return -elem;
+
+			});
+
+	for (auto elem : vecView)
+	{
+		std::printf("%i \n", elem);
+	}
+
+	auto pos = std::ranges::find(vecView, 0);
 
 }
 #endif

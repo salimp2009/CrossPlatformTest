@@ -5,6 +5,9 @@ project ("Ranges")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Uncomment if Shared Library is given as an option
+#set(BUILD_SHARED_LIBS NO)
+
 add_library(RangesTest
 		src/RangesTest.cpp
 		src/RangesHeaders.hpp
@@ -19,5 +22,8 @@ add_library(RangesTest
 
 target_include_directories(RangesTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
+#src/RangesTest.cpp
 add_executable (RangeTest src/RangesTest.cpp) 
-target_link_libraries(RangeTest PUBLIC RangesTest)
+# if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
+# if only Ranges needs the specified list then use PRIVATE
+target_link_libraries(RangeTest PRIVATE RangesTest)
