@@ -8,6 +8,7 @@
 
 // Clang-13 has incomplete in Ranges gives error gcc and msvc is mostly OK;
 
+#if defined __GNUG__  || defined _MSC_VER && !defined(__clang__)
 
 inline void RangesBasics()
 {
@@ -141,3 +142,5 @@ inline void CustomTakeView_Test()
 
 	std::puts("");
 }
+
+#endif

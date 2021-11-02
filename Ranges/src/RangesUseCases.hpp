@@ -1,7 +1,7 @@
 #pragma once
 #include "RangesHeaders.hpp"
 
-#if defined __GNUG__  || defined _MSC_VER || !defined(__clang__)
+#if defined __GNUG__  || defined _MSC_VER && !defined(__clang__)
 
 inline void RangesSort_Strings()
 {

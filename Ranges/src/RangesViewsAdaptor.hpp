@@ -21,7 +21,7 @@ inline void RangesAdaptors_all()
 
 	// TODO; check if string_view can be converted to a view because (CHECK THIS !!!)currently you cannot use string_view if a view is expected !
 	constexpr std::string_view strView = { "Hello Cmake" };
-
+	
 	//views::counted returns a range from string_view
 	auto rangeView4 = std::views::counted(strView.data(), strView.size());
 	auto rangeView5 = std::views::all(rangeView4);
@@ -32,11 +32,37 @@ inline void RangesAdaptors_all()
 
 	auto rangeView8 = std::views::counted(rangeView6.data(), rangeView6.size());
 
+	std::puts("passing string view into an adaptor: Only 3 first characters");
+	//rangeView type is string_view and accepted by std::views::take() adaptor
+	for (auto elem : std::views::take(rangeView6, 3))
+	{
+		std::printf("%c ", elem);
+	}
+
+	std::puts("\nfull characters in string_view");
 	for (auto elem : rangeView6)
 	{
 		std::printf("%c ", elem);
 	}
 
+	// piping string_view; TEST
+	std::puts("\npiping string_view; TEST");
+	for (const auto& elem : strView | std::views::take(std::ssize(strView)-3))
+	{
+		std::printf("%c", elem);
+	}
+
+	std::puts("");
+	// const char* not compile with ranges
+	//const char* CString = "C-Style String Testing";
+	//auto rangeViewCStr1 = std::views::all(CString);
 }
 
+inline void Ranges_LazyEval()
+{
+	std::puts("---Ranges_LazyEval---");
+
+
+
+}
 #endif
