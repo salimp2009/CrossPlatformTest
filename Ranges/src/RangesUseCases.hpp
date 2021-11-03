@@ -33,7 +33,7 @@ inline void RangesSort_Strings()
 	// Just tring random silly things :)
 	constexpr auto functList = std::array{ funcTrue, funcFalse };
 	// Does not compile : if we pass the initializer directly into list 
-	for (auto res : functList | std::views::filter([](auto&& f) {return f() == false; }))
+	for (auto res : functList | std::views::filter([](auto f) {return f() == false; }))
 	{
 		if (anyFailure)
 		{
@@ -43,7 +43,7 @@ inline void RangesSort_Strings()
 
 	auto functList2 = { funcTrue, funcFalse };
 
-	for (const auto& res : functList2 | std::views::filter([](auto&& f) {return f() == false; }))
+	for (const auto& res : functList2 | std::views::filter([](auto f) {return f() == false; }))
 	{
 		if (anyFailure)
 		{
@@ -69,7 +69,7 @@ inline void RangesSubRanges_Sentinels()
 
 	auto RawStrRange = std::ranges::subrange(rawString2, NullTerm{});
 
-	std::ranges::for_each(RawStrRange, [](auto&& elem) { std::printf("%c ", elem); } );
+	std::ranges::for_each(RawStrRange, [](auto elem) { std::printf("%c ", elem); } );
 
 	std::puts("");
 	for (auto c : RawStrRange)
