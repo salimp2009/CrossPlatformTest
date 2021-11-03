@@ -8,6 +8,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Uncomment if Shared Library is given as an option
 #set(BUILD_SHARED_LIBS NO)
 
+#added to use precompiled headers
+add_library(CommonPCH INTERFACE)
+target_precompile_headers(CommonPCH INTERFACE 
+	[["RangesHeaders.hpp"]]
+)
+
+target_include_directories(CommonPCH INTERFACE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
+)
+
 add_library(RangesTest
 		src/RangesTest.cpp
 		src/RangesHeaders.hpp
@@ -21,6 +31,8 @@ add_library(RangesTest
 )
 
 target_include_directories(RangesTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+
+target_link_libraries(RangesTest PRIVATE CommonPCH)
 
 #src/RangesTest.cpp
 add_executable (RangeTest src/RangesTest.cpp) 
