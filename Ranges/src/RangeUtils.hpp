@@ -34,3 +34,4 @@ struct EndValue
 		return *pos == EndVal;
 	}
 };
+

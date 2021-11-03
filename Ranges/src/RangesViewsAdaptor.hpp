@@ -168,6 +168,51 @@ inline void RangesViews_WriteAccess()
 	std::puts("");
 }
 
+inline void Ranges_BorrowedIterator()
+{
+	std::puts("---Ranges_BorrowedIterator---");
+	// borrowed_ranges concepts does compile time checked if range or view has dangling iterator (if original source is no longer valid)
+	// https://en.cppreference.com/w/cpp/ranges/borrowed_range
+	// examples of borrowed_ranges are std::span, std::string_view there are also borrowed range in the ranges
+	// if you try pass any of borrowed_range into a value into some other function even the funct call is valid
+	// since you pass by value compiler checks if the lifetime of original source of the view and if it will life time issue then
+	// you get a compiler error which helps further problems 
+
+	auto GetRangebyValue = []() { return std::array<int, 4>{1, 2, 3, 4}; };
+
+	auto GetBorrowedRange = []()
+	{
+		static int arr[4] = { 1,2,3,4 };
+		return std::span{ arr };
+	};
+
+	static_assert(std::ranges::borrowed_range<std::array<int, 4>> == false);
+	static_assert(std::ranges::enable_borrowed_range<std::array<int, 4>> == false);
+
+	static_assert(std::ranges::borrowed_range<std::span<int, 4>> == true);
+	static_assert(std::ranges::enable_borrowed_range<std::span<int, 4>> == true);
+
+	auto danglingRef = std::ranges::max_element(GetRangebyValue());
+	static_assert(std::is_same_v<std::ranges::dangling, decltype(danglingRef)>);
+	// this will not compile since it is a dangling reference
+	//std::printf("%i ", *danglingRef);
+
+	auto validRef = std::ranges::max_element(GetBorrowedRange());
+	auto val = *validRef;
+	std::printf("validref; BorrowedRange using static local value : %i \n", val);
+
+	std::puts("");
+
+	auto pos1 = std::ranges::find(std::vector{ 8 }, 8);
+	// dangling; wont compile; 
+	//std::printf("%i", *pos1);
+
+	// std::views::iota is a borrowed range
+	auto pos2 = std::ranges::find(std::views::iota(8), 8);
+	std::printf("%i", *pos2);
+
+
+}
 
 
 #endif

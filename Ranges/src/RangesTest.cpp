@@ -25,7 +25,7 @@ int main()
 	RangesAdaptors_all();
 	Ranges_LazyEval();
 	RangesViews_WriteAccess();
-	//
+	Ranges_BorrowedIterator();
 
 #endif
 }
