@@ -26,6 +26,7 @@ int main()
 	Ranges_LazyEval();
 	RangesViews_WriteAccess();
 	Ranges_BorrowedIterator();
+	Ranges_ShallowConstantness();
 
 #endif
 }

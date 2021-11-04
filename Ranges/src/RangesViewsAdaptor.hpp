@@ -234,5 +234,28 @@ inline void Ranges_BorrowedIterator()
 	
 }
 
+inline void Ranges_ShallowConstantness()
+{
+	std::puts("---Ranges_ShallowConstantness---");
 
+	// the propogation constant is shallow; it allows to change the referred element
+	// if ranges passed into a function that changes value then referred element will change!!
+
+	// this is a test function that tries change the passed variable; normally it wont compile
+	auto constFunct = [](const auto& range)
+	{
+		range.front() += 1;
+	};
+
+	std::array<int, 4> arr1{ 1,2,3,4 };
+
+	std::ranges::take_view tkView{ arr1, 3};
+
+	// this fails becuase the function takes const&
+	//constFunct(arr1);
+
+	// compiles OK; AMD Changes the values
+	constFunct(tkView);
+	
+}
 #endif
