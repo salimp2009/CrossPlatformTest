@@ -3,7 +3,6 @@
 #include "RangesBasic.hpp"
 
 
-
 int main()
 {
 	std::puts("Hello Ranges\n");

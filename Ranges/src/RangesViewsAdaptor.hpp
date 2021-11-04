@@ -197,21 +197,41 @@ inline void Ranges_BorrowedIterator()
 	// this will not compile since it is a dangling reference
 	//std::printf("%i ", *danglingRef);
 
+	
 	auto validRef = std::ranges::max_element(GetBorrowedRange());
 	auto val = *validRef;
 	std::printf("validref; BorrowedRange using static local value : %i \n", val);
 
-	std::puts("");
-
+	// All lvalues are borrowed ranges therefore returned iterator cannot be dangling !
 	auto pos1 = std::ranges::find(std::vector{ 8 }, 8);
 	// dangling; wont compile; 
 	//std::printf("%i", *pos1);
 
-	// std::views::iota is a borrowed range
+	// std::views::iota is a borrowed range since it hold copies of the element
 	auto pos2 = std::ranges::find(std::views::iota(8), 8);
-	std::printf("%i", *pos2);
+	std::printf("%i \n", *pos2);
 
+	// temporary views are changing from case to case whether they are borrowed range or not
+	auto pos3 = std::ranges::find(std::views::single(8), 8);
+	// wont compile; borrowed iterator & dangling 
+	//auto val2 = *pos3;
 
+	// views::empty borrowed range; but it returns nullptr so check for nullptr
+	auto pos4 = std::ranges::find(std::views::empty<int>, 8);
+	if (pos4)
+	{
+		std::puts("Not empty");
+	}
+	else 
+	{ 
+		std::puts("empty");
+	};
+
+	// there are also views that expects a range or subrange than the lifetime checks differ from view to view
+	auto pos5 = std::ranges::find(std::views::counted(std::vector{ 1,8,3,4,5 }.begin(), 3), 8);
+	// supposed to give runtime error but it gives junk values (mainly returns zero at GCC, junk/negative val on MSVC)
+	//if(*pos5==8) std::printf("%i \n", *pos5);
+	
 }
 
 

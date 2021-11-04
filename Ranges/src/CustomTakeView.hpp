@@ -2,7 +2,7 @@
 #include "RangesHeaders.hpp"
 
 
-
+#if defined __GNUG__  || defined _MSC_VER && !defined(__clang__)
 //std::ranges::view is a concept in rangers header 
 template<std::ranges::view R>
 class custom_take_view :public std::ranges::view_interface<custom_take_view<R>>
@@ -80,3 +80,4 @@ namespace view
 	inline details::custom_take_range_adaptor custom_take;
 
 }
+#endif

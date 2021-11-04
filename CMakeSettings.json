@@ -23,7 +23,8 @@
           "value": "-g -std=c++20 -fcoroutines",
           "type": "STRING"
         }
-      ]
+      ],
+      "addressSanitizerEnabled": false
     },
     {
       "name": "x64-Debug",
