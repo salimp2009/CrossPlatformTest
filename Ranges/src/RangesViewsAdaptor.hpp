@@ -245,6 +245,7 @@ inline void Ranges_ShallowConstantness()
 	auto constFunct = [](const auto& range)
 	{
 		range.front() += 1;
+		std::printf("%i ", range.front());
 	};
 
 	std::array<int, 4> arr1{ 1,2,3,4 };
@@ -256,6 +257,12 @@ inline void Ranges_ShallowConstantness()
 
 	// compiles OK; AMD Changes the values
 	constFunct(tkView);
-	
+
+	constFunct(arr1 | std::views::take(4));
+	constFunct(arr1 | std::views::take(2));
+	constFunct(std::ranges::subrange(arr1));
+	constFunct(std::views::all(arr1));
+	constFunct(std::span(arr1));
+
 }
 #endif

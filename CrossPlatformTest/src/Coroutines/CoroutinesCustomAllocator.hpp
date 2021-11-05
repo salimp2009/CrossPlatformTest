@@ -6,13 +6,9 @@
 // https://en.cppreference.com/w/cpp/memory/new/operator_new
 
 
-
-
-
-
 namespace CustomAlloc
 {
-
+	
 	struct arena
 	{
 		void* Allocate(std::size_t size) noexcept;

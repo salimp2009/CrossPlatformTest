@@ -18,6 +18,7 @@ target_include_directories(CommonPCH INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
 )
 
+
 add_library(RangesTest
 		src/RangesTest.cpp
 		src/RangesHeaders.hpp
@@ -34,8 +35,8 @@ target_include_directories(RangesTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 target_link_libraries(RangesTest PRIVATE CommonPCH)
 
-#src/RangesTest.cpp
 add_executable (RangeTest src/RangesTest.cpp) 
 # if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
 # if only Ranges needs the specified list then use PRIVATE
 target_link_libraries(RangeTest PRIVATE RangesTest)
+
