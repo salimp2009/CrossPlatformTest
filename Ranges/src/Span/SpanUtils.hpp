@@ -1,6 +1,7 @@
 #pragma
 #include "RangesHeaders.hpp"
 
+
 void Send(const std::span<char>& data)
 {
 	data[0] = 'z';

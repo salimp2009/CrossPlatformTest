@@ -6,6 +6,7 @@
 #include "Coroutines/CoroutineAsyncStreamParser.hpp"
 #include "Coroutines/CoroutineAsyncStreamParserV2.hpp"
 #include "Coroutines/CoroutinesCustomAllocator.hpp"
+#include "Ranges/RangesViewsAdaptor.hpp"
 
 
 
@@ -52,6 +53,7 @@ int main()
 	CoroutineAsyncStreamParser();
 	AsyncStreamParserV2::AysncStreamParserV2_Corotn();
 	CustomAllocator_Corotn();
+	Ranges_LazyEval();
 
 #endif
 

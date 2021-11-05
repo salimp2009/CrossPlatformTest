@@ -19,9 +19,8 @@ target_include_directories(CommonPCH INTERFACE
 )
 
 
-add_library(RangesTest
+add_library(RangesTestLib
 		src/RangesTest.cpp
-		src/RangesHeaders.hpp
 		src/RangesBasic.hpp
 		src/RangeUtils.hpp
 		src/Span/SpanTest.hpp 
@@ -31,12 +30,12 @@ add_library(RangesTest
 		src/RangesViewsAdaptor.hpp
 )
 
-target_include_directories(RangesTest PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
-target_link_libraries(RangesTest PRIVATE CommonPCH)
+target_link_libraries(RangesTestLib PRIVATE CommonPCH)
 
 add_executable (RangeTest src/RangesTest.cpp) 
 # if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
 # if only Ranges needs the specified list then use PRIVATE
-target_link_libraries(RangeTest PRIVATE RangesTest)
+target_link_libraries(RangeTest PRIVATE RangesTestLib)
 

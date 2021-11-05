@@ -5,8 +5,6 @@
 #include <cstdio>
 
 
-
-
 #if _GLIBCXX_RANGES ||  !defined(__clang__)
 
 template<typename T>

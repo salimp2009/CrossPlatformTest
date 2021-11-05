@@ -7,8 +7,7 @@
 
 
 namespace CustomAlloc
-{
-	
+{	
 	struct arena
 	{
 		void* Allocate(std::size_t size) noexcept;

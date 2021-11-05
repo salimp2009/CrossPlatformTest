@@ -27,6 +27,7 @@ int main()
 	RangesViews_WriteAccess();
 	Ranges_BorrowedIterator();
 	Ranges_ShallowConstantness();
+	Ranges_MakeRangeConst();
 	//
 #endif
 }
