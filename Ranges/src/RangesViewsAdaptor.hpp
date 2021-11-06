@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include "RangesHeaders.hpp"
 
 #if defined __GNUG__  || defined _MSC_VER && !defined(__clang__)
@@ -15,22 +15,22 @@ inline void RangesAdaptors_all()
 	std::ranges::iota_view iotaView{ 1, 10 };
 	
 	// std::views::all() accepts only views or lvalues ; temporary objects wont compilie :) !!!
-	auto rangeView1 = std::views::all(vec);
-	auto rangeView2 = std::views::all(iotaView);
-	auto rangeView3 = std::views::all( std::views::all(vec) );
+	[[maybe_unused]] auto rangeView1 = std::views::all(vec);
+	[[maybe_unused]] auto rangeView2 = std::views::all(iotaView);
+	[[maybe_unused]] auto rangeView3 = std::views::all( std::views::all(vec) );
 
 	// TODO; check if string_view can be converted to a view because (CHECK THIS !!!)currently you cannot use string_view if a view is expected in some cases!
 	constexpr std::string_view strView = { "Hello Cmake" };
 	
 	//views::counted returns a range from string_view
 	auto rangeView4 = std::views::counted(strView.data(), strView.size());
-	auto rangeView5 = std::views::all(rangeView4);
+	[[maybe_unused]] auto rangeView5 = std::views::all(rangeView4);
 
 	//TODO; std::views::all returns a string_view so it may not work if you want pipe it to an adaptor if it expects a std::views (TO BE CHECKED!!!)
 	auto rangeView6 = std::views::all(strView);
-	auto rangeView7 = std::views::all(rangeView6);
+	[[maybe_unused]]  auto rangeView7 = std::views::all(rangeView6);
 
-	auto rangeView8 = std::views::counted(rangeView6.data(), rangeView6.size());
+	[[maybe_unused]] auto rangeView8 = std::views::counted(rangeView6.data(), rangeView6.size());
 
 	std::puts("passing string view into an adaptor: Only 3 first characters");
 	//rangeView type is string_view and accepted by std::views::take() adaptor
@@ -92,7 +92,7 @@ inline void Ranges_LazyEval()
 	}
 
 
-	auto pos = std::ranges::find(vecView, 0);
+	[[maybe_unused]] auto pos = std::ranges::find(vecView, 0);
 
 	std::puts("testing if the views changed the original container:");
 	for (const auto& val : vec)
@@ -203,16 +203,16 @@ inline void Ranges_BorrowedIterator()
 	std::printf("validref; BorrowedRange using static local value : %i \n", val);
 
 	// All lvalues are borrowed ranges therefore returned iterator cannot be dangling !
-	auto pos1 = std::ranges::find(std::vector{ 8 }, 8);
+	[[maybe_unused]]  auto pos1 = std::ranges::find(std::vector{ 8 }, 8);
 	// dangling; wont compile; 
 	//std::printf("%i", *pos1);
 
 	// std::views::iota is a borrowed range since it hold copies of the element
-	auto pos2 = std::ranges::find(std::views::iota(8), 8);
+	[[maybe_unused]] auto pos2 = std::ranges::find(std::views::iota(8), 8);
 	std::printf("%i \n", *pos2);
 
 	// temporary views are changing from case to case whether they are borrowed range or not
-	auto pos3 = std::ranges::find(std::views::single(8), 8);
+	[[maybe_unused]]  auto pos3 = std::ranges::find(std::views::single(8), 8);
 	// wont compile; borrowed iterator & dangling 
 	//auto val2 = *pos3;
 
@@ -228,7 +228,7 @@ inline void Ranges_BorrowedIterator()
 	};
 
 	// there are also views that expects a range or subrange than the lifetime checks differ from view to view
-	auto pos5 = std::ranges::find(std::views::counted(std::vector{ 1,8,3,4,5 }.begin(), 3), 8);
+	[[maybe_unused]] auto pos5 = std::ranges::find(std::views::counted(std::vector{ 1,8,3,4,5 }.begin(), 3), 8);
 	// supposed to give runtime error but it gives junk values (mainly returns zero at GCC, junk/negative val on MSVC)
 	//if(*pos5==8) std::printf("%i \n", *pos5);
 	
@@ -271,7 +271,7 @@ inline void Ranges_MakeRangeConst()
 {
 	std::puts("---Ranges_MakeRangeConst---");
 
-	auto constFunct = [](const auto& range)
+	[[maybe_unused]] auto constFunct = [](const auto& range)
 	{
 		range.front() += 1;
 		std::printf("%i ", range.front());
@@ -287,6 +287,20 @@ inline void Ranges_MakeRangeConst()
 	//constFunct(tkView);
 	//constFunct(std::as_const(arr1) | std::views::take(4));
 
+}
+
+inline void Ranges_GenericMaxValue()
+{
+	std::puts("---Ranges_MakeRangeConst---");
+	// we use univer forwarding reference to be able iterate over most views that changes state
+	// therefore we could not use const Range&& r instead use Range&& r
+
+	const int arr[] = { 8,25, -1, 45, 68 };
+
+	auto odd = [](auto val) { return val % 2 != 0; };
+	auto res = maxValue(arr | std::views::filter(odd));
+	
+	std::printf("Max Value : %i\n", res);
 }
 
 #endif

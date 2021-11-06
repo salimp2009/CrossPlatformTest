@@ -1,7 +1,7 @@
 #include "RangesHeaders.hpp"
 #include "Span/SpanTest.hpp"
 #include "RangesBasic.hpp"
-
+#include "RangesViewsComponents.hpp"
 
 int main()
 {
@@ -28,6 +28,8 @@ int main()
 	Ranges_BorrowedIterator();
 	Ranges_ShallowConstantness();
 	Ranges_MakeRangeConst();
+	Ranges_GenericMaxValue();
+	RangesView_Components();
 	//
 #endif
 }

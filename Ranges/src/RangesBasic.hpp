@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 
 #include "RangesHeaders.hpp"
 #include "RangeUtils.hpp"
@@ -113,7 +113,7 @@ inline void CustomTakeView_Test()
 	
 	std::vector<int>numbers{ 1,2,3,4,5,7,8,9 };
 
-	auto result = custom_take_view(numbers, 5);
+	[[maybe_unused]] auto result = custom_take_view(numbers, 5);
 
 	for (const auto& elem : custom_take_view(numbers, 2))
 	{
