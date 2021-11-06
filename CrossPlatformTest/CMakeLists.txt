@@ -12,7 +12,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
 add_executable (CrossPlatformTest "src/CrossPlatformTest.cpp" "src/CrossPlatformTest.h" "src/Coroutines.hpp" 
 								"src/Coroutines/CoroutineAsyncStreamParser.hpp" "src/Modules/ModuleTest01.cpp" 
 								"src/Coroutines/CoroutineAsyncStreamParserV2.hpp" "src/Coroutines/CoroutinesHeader.hpp" "src/Coroutines/CoroutinesCustomAllocator.hpp" 
-								"src/Ranges/CustomTakeView.hpp" "src/Ranges/RangesBasic.hpp" "src/Ranges/RangesHeaders.hpp" "src/Ranges/RangesUseCases.hpp" 
-								"src/Ranges/RangesViewsAdaptor.hpp" "src/Ranges/RangeUtils.hpp"  )
+								    
+								   )
+
 
 # TODO: Add tests and install targets if needed.
