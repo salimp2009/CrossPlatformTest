@@ -54,16 +54,29 @@ void RangesView_Counted()
 	// for types std::list, associative containers, unordered containers(e.g.:hash tables)
 
 	std::vector vec{ 1,2,3,4,5,6,7,89 };
-	auto pos1 = std::ranges::find(vec, 4);
+	const auto countValue = 4;
+	auto pos1 = std::ranges::find(vec, countValue);
 	// make sure position + count value <= container.size() so that you dont try to access beyond given range/container
-	[[maybe_unused]] auto subVec = std::views::counted(pos1, 4);
-	
-	// this is a bug in gcc-11.1 ; current version of gcc returns the assert true; mvsvc and clang 13+ is ok
-	// TODO : remove the preprocessor once i get gcc11-2 and also clang-11.3
-	#if defined _MSC_VER
-		static_assert(std::is_same_v<decltype(subVec), std::span<int>>);
-	#endif // !
+	if (std::ranges::distance(pos1, vec.end()) >= countValue)
+	{
+		[[maybe_unused]] auto subVec = std::views::counted(pos1, countValue);
 
+		// this is a bug in gcc-11.1 ; current version of gcc returns the assert true; mvsvc and clang 13+ is ok
+		// TODO : remove the preprocessor once i get gcc11-2 and also clang-11.3
+		#if defined __GNUG__
+				static_assert(std::is_same_v<decltype(subVec), std::span<int>> == false);
+		#else
+				static_assert(std::is_same_v<decltype(subVec), std::span<int>> == true);
+		#endif
+	}
+
+	// make sure position + count value <= container.size() so that you dont try to access beyond given range/container
+	std::deque<int> deq{ 1,2,3,4,5,7,8,9 };
+	auto subDeq = std::views::counted(deq.begin(), 4);
+	static_assert(std::is_same_v<decltype(subDeq), std::ranges::subrange<std::deque<int>::iterator>> == true);
+
+	std::list lst{ 1,2,3,4,5,6,7,8,9 };
+	[[maybe_unused]] auto subList = std::views::counted(lst.begin(), 4);
 }
 
 
