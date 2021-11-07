@@ -30,6 +30,8 @@ int main()
 	Ranges_MakeRangeConst();
 	Ranges_GenericMaxValue();
 	RangesView_Components();
+	RangesView_Counted();
+
 	//
 #endif
 }
