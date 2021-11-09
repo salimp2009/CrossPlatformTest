@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <iostream>
 #include <type_traits>
+#include <algorithm>
 #include <span>
 #include <array>
 #include <vector>

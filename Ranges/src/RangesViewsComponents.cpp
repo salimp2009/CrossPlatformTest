@@ -77,7 +77,28 @@ void RangesView_Counted()
 
 	std::list lst{ 1,2,3,4,5,6,7,8,9 };
 	[[maybe_unused]] auto subList = std::views::counted(lst.begin(), 4);
+
 }
 
+void RangesView_CommonAdaptor()
+{
+	std::puts("--RangesView_CommonAdaptor--");
+	// turns the view or range or ref_view begin and end iterators to be same so that it can be 
+	// used in STL container or standart Algorithms; not needed for range algorithms
+	std::list lst = { 1,2,3,4,5,6,7,8 };
+	std::ranges::iota_view iv{ 1, 10 };
 
+	// the begin and end iterator types are not the same 
+	auto tkView1 = std::views::take(lst, 5);
+	
+	auto v1 = std::views::common(lst);
+	// by using views::common returns a view that has same begin and end iterator types
+	auto v2 = std::views::common(tkView1);
+
+	std::puts("Original List: all members:");
+	std::for_each(v1.begin(), v1.end(), [](auto elem) {std::printf("%i ", elem); });
+	std::puts("\nstd::views::take(); list with 5 elems:");
+	std::for_each(v2.begin(), v2.end(), [](auto elem) {std::printf("%i ", elem); });
+
+}
 #endif

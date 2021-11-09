@@ -31,6 +31,7 @@ int main()
 	Ranges_GenericMaxValue();
 	RangesView_Components();
 	RangesView_Counted();
+	RangesView_CommonAdaptor();
 
 	//
 #endif
