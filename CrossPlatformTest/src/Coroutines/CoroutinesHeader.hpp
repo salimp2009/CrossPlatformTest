@@ -8,5 +8,5 @@
 #include <string>
 #include <span>
 #include <cstdio>
-
+#include <ranges>
 

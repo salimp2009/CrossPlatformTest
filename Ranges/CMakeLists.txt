@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("Ranges")
 # Add source to this project's executable.
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
@@ -37,6 +38,7 @@ if(MSVC)
     # This makes alternative tokens (not, and, ...) as actual keywords and
     # enables more conformant C++ in general
     add_definitions(/permissive-)
+    #add_definitions(/std:c++latest)
 
     
 else()
@@ -56,6 +58,7 @@ else()
       
     else()
       add_definitions(-fcoroutines) # required for GCC-10    
+      #add_definitions(-fpermissive) # to relax typename requirement    
       
     endif()
 endif()

@@ -7,6 +7,8 @@
 #include "Coroutines/CoroutineAsyncStreamParserV2.hpp"
 #include "Coroutines/CoroutinesCustomAllocator.hpp"
 
+#include <list>
+
 
 
 #if _GLIBCXX_RANGES 
@@ -74,5 +76,30 @@ int main()
 	std::printf("eager future result : %d\n", fut.get());
 
 #endif
+
+	std::list lst = { 1,2,3,4,5,6,7,8 };
+	std::ranges::iota_view iv{ 1, 10 };
+
+	// the begin and end iterator types are not the same 
+	//auto tkView1 = std::views::take(lst, 5);
+
+	auto v1 = std::views::common(lst);
+	// by using views::common returns a view that has same begin and end iterator types
+	//auto v2 = std::views::common(tkView1);
+
+	std::puts("Original List: all members:");
+	std::for_each(v1.begin(), v1.end(), [](auto elem) {std::printf("%i ", elem); });
+	std::puts("\nstd::views::take(); list with 5 elems:");
+	//std::for_each(v2.begin(), v2.end(), [](auto elem) {std::printf("%i ", elem); });
+
+	auto vecRg = std::vector{ 3,4,6,5, 7,9 };
+
+	// ranges return a std::default_sentinel_t  for the type of end iterator. But std::accumulate algorith expect a comman_range which has the same type for begin an end
+	// By adding std::views::common we convert range to return a common_range so we can use in regular STL algorithms
+	// any ranges algorithm dont need that conversion
+	auto range1 = vecRg | std::views::take_while([](int x) { return x < 5; }) | std::views::common;
+
+	std::puts("");
+
 	return 0;
 }
