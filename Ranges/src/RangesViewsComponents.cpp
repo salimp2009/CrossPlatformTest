@@ -100,5 +100,6 @@ void RangesView_CommonAdaptor()
 	std::puts("\nstd::views::take(); list with 5 elems:");
 	std::for_each(v2.begin(), v2.end(), [](auto elem) {std::printf("%i ", elem); });
 
+	std::puts("");
 }
 #endif

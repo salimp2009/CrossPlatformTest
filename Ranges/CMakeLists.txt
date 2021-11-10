@@ -86,13 +86,15 @@ add_library(RangesTestLib
 		src/RangesUseCases.hpp
 		src/RangesViewsAdaptor.hpp
 		src/RangesViewsComponents.hpp	
-)
+        src/RangesCompileTimeSize.hpp
+        src/RangesCompileTimeSize.cpp
+ )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 target_link_libraries(RangesTestLib PRIVATE CommonPCH)
 
-add_executable (RangeTest src/RangesTest.cpp) 
+add_executable (RangeTest src/RangesTest.cpp "src/RangesCompileTimeSize.hpp") 
 # if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
 # if only Ranges needs the specified list then use PRIVATE
 target_link_libraries(RangeTest PRIVATE RangesTestLib)
