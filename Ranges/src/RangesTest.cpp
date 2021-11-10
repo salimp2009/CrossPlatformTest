@@ -2,7 +2,7 @@
 #include "Span/SpanTest.hpp"
 #include "RangesBasic.hpp"
 #include "RangesViewsComponents.hpp"
-//#include "RangesCompileTimeSize.hpp"
+#include "RangesCompileTimeSize.hpp"
 
 int main()
 {
@@ -33,7 +33,7 @@ int main()
 	RangesView_Components();
 	RangesView_Counted();
 	RangesView_CommonAdaptor();
-	//RangesCompileTimeSize();
+	RangesCompileTimeSize();
 
 	//
 #endif
