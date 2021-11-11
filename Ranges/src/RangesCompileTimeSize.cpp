@@ -64,8 +64,29 @@ void LambdaVariadicCapture_ContEval()
 	};
 
 	auto val = sum(1, 2, 3);
-	std::printf("%i", val);
+	std::printf("%i\n", val);
 }
 #endif
+
+void Ranges_CountedIterator()
+{
+	std::puts("--Ranges_CountedIterator--");
+	// std::counted_iterator is an iterator that has a count to specify the end of a range
+	std::vector vec{ 1,2,3,3,4,5,6,7,8,9 };
+
+	// pos.count == 0 means the end of count
+	for (auto pos = std::counted_iterator{ vec.begin(), 4 }; pos.count() > 0; ++pos)
+	{
+		std::printf("%i ", *pos);
+	}
+
+	std::puts(" ");
+
+	for (auto pos = std::counted_iterator{ vec.begin(), 5 }; pos != std::default_sentinel; ++pos)
+	{
+		std::printf("%i ", *pos);
+	}
+
+}
 
 
