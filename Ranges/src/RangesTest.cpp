@@ -34,6 +34,7 @@ int main()
 	RangesView_Counted();
 	RangesView_CommonAdaptor();
 	RangesCompileTimeSize();
+	LambdaVariadicCapture_ContEval();
 
 	//
 #endif

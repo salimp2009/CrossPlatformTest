@@ -36,3 +36,36 @@ void RangesCompileTimeSize()
 }
 
 
+// Example from Chris Csuiak to write a Ardunio project
+#if defined (__GNUG__)  || defined _MSC_VER && !defined(__clang__)
+void LambdaVariadicCapture_ContEval()
+{
+	std::puts("--LambdaVariadicCapture_ContEval--");
+
+	[[maybe_unused]] constexpr auto sum = [](auto arg, auto... args)
+	{
+		if (std::is_constant_evaluated())
+		//if consteval     //C++23 feature; works for GCC 11.3+ 
+		{
+			return (arg + ... + args);
+		}
+		else
+		{
+			([&arg, ...args](auto value)
+			{
+				// assembly code valid for GCC only MSVC has different assembly codes
+				asm("leal (%1, %2), %0"
+					:"=r" (arg)
+					: "r" (arg),
+					  "r" (value));
+			}(args), ...);
+			return arg;
+		}
+	};
+
+	auto val = sum(1, 2, 3);
+	std::printf("%i", val);
+}
+#endif
+
+

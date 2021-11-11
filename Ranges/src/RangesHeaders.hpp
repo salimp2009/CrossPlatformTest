@@ -2,6 +2,7 @@
 
 #include <cstdio>
 #include <iostream>
+#include <cassert>
 #include <type_traits>
 #include <algorithm>
 #include <span>
