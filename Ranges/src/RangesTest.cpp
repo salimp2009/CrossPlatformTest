@@ -34,7 +34,9 @@ int main()
 	RangesView_Counted();
 	RangesView_CommonAdaptor();
 	RangesCompileTimeSize();
+#if defined (__GNUG__)
 	LambdaVariadicCapture_ContEval();
+#endif
 	Ranges_CountedIterator();
 	//
 #endif

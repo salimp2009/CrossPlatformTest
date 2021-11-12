@@ -32,12 +32,14 @@ void RangesCompileTimeSize()
 	for (const auto& i : merged) {
 		std::cout << i << ' ';
 	}
+	
 #endif
+	std::puts("");
 }
 
 
 // Example from Chris Csuiak to write a Ardunio project
-#if defined (__GNUG__)  || defined _MSC_VER && !defined(__clang__)
+#if defined (__GNUG__)  || !defined _MSC_VER && !defined(__clang__)
 void LambdaVariadicCapture_ContEval()
 {
 	std::puts("--LambdaVariadicCapture_ContEval--");
@@ -53,6 +55,7 @@ void LambdaVariadicCapture_ContEval()
 		{
 			([&arg, ...args](auto value)
 			{
+
 				// assembly code valid for GCC only MSVC has different assembly codes
 				asm("leal (%1, %2), %0"
 					:"=r" (arg)
@@ -74,14 +77,25 @@ void Ranges_CountedIterator()
 	// std::counted_iterator is an iterator that has a count to specify the end of a range
 	std::vector vec{ 1,2,3,3,4,5,6,7,8,9 };
 
-	// pos.count == 0 means the end of count
-	for (auto pos = std::counted_iterator{ vec.begin(), 4 }; pos.count() > 0; ++pos)
+	// check count val is not greater than the vec.size()
+	auto countVal = 4;
+	// if auto is used the type is ptrdiff_t and std::min does not work
+	// better to use unsigned int then no conversions will be neccessary but sometime signed int is better optimized
+	int vecSize = vec.size();
+	countVal = std::min(countVal, vecSize);
+
+// pos.count == 0 means the end of count
+// pos.count gives how many elements left from the counted value
+	for (auto pos = std::counted_iterator{ vec.begin(), countVal }; pos.count() > 0; ++pos)
 	{
 		std::printf("%i ", *pos);
 	}
 
 	std::puts(" ");
 
+	// pos!=std::default_sentinel means end != vec.end() because we are only using a given number of elems which may not be 
+	// equal to the end ; NOTE the count value + vec.begin() should be at least equal or less than vec.end() in order to avoid 
+	// Undefined Behaviour !!!!
 	for (auto pos = std::counted_iterator{ vec.begin(), 5 }; pos != std::default_sentinel; ++pos)
 	{
 		std::printf("%i ", *pos);
