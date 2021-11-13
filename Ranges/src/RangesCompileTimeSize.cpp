@@ -68,6 +68,7 @@ void LambdaVariadicCapture_ContEval()
 
 	auto val = sum(1, 2, 3);
 	std::printf("%i\n", val);
+	
 }
 #endif
 
@@ -101,6 +102,34 @@ void Ranges_CountedIterator()
 		std::printf("%i ", *pos);
 	}
 
+}
+
+struct Starmatch
+{
+	auto operator==(auto pos) const
+	{
+		return *pos = "Didem";
+	}
+};
+
+
+void Ranges_CommonIterator()
+{
+	std::puts("--Ranges_CommonIterator--");
+
+	auto FireCopy = []<typename ForwardIter>(ForwardIter first, ForwardIter last) { std::copy(first, last, std::ostream_iterator<decltype(*first)>{std::cout, " "}); };
+
+	std::list<std::string> starNames = { "Semos","Demir", "Didem", "Semsi" };
+
+	using IT = std::common_iterator<std::counted_iterator<std::list<std::string>::iterator>, std::default_sentinel_t>;
+
+	FireCopy(IT(std::counted_iterator(starNames.begin(), starNames.size() - 1)), IT(std::default_sentinel));
+
+	
+	
+	auto v = std::views::common(std::ranges::subrange(starNames.begin(), starNames.end()));
+	std::puts("");
+	std::copy(v.begin(), v.end(), std::ostream_iterator<decltype(v.begin())::value_type>{std::cout, " "});
 }
 
 

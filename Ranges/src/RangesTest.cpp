@@ -38,6 +38,6 @@ int main()
 	LambdaVariadicCapture_ContEval();
 #endif
 	Ranges_CountedIterator();
-	//
+	Ranges_CommonIterator();
 #endif
 }
