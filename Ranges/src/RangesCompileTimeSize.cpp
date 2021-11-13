@@ -108,16 +108,16 @@ struct Starmatch
 {
 	auto operator==(auto pos) const
 	{
-		return *pos = "Didem";
+		return *pos == "Didem";
 	}
 };
 
 
 void Ranges_CommonIterator()
 {
-	std::puts("--Ranges_CommonIterator--");
+	std::puts("\n--Ranges_CommonIterator--");
 
-	auto FireCopy = []<typename ForwardIter>(ForwardIter first, ForwardIter last) { std::copy(first, last, std::ostream_iterator<decltype(*first)>{std::cout, " "}); };
+	auto FireCopy = []<typename ForwardIter>(ForwardIter first, ForwardIter last) { std::copy(first, last, std::ostream_iterator<std::string_view>{std::cout, " "}); };
 
 	std::list<std::string> starNames = { "Semos","Demir", "Didem", "Semsi" };
 
@@ -125,11 +125,21 @@ void Ranges_CommonIterator()
 
 	FireCopy(IT(std::counted_iterator(starNames.begin(), starNames.size() - 1)), IT(std::default_sentinel));
 
-	
-	
 	auto v = std::views::common(std::ranges::subrange(starNames.begin(), starNames.end()));
 	std::puts("");
 	std::copy(v.begin(), v.end(), std::ostream_iterator<decltype(v.begin())::value_type>{std::cout, " "});
+
+	std::puts("");
+	auto rng = v | std::views::take_while([](std::string_view name) { return name != "Semsi"; }) | std::views::common;
+	FireCopy(rng.begin(), rng.end());
+
+	auto rng2 = std::ranges::subrange(starNames.begin(), Starmatch{});
+
+	std::puts("");
+	for (auto name : rng2)
+	{
+		std::printf("%s ", name.c_str());
+	}
 }
 
 
