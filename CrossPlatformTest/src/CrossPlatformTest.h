@@ -17,6 +17,7 @@
 #include <ranges>
 
 
+
 #if _GLIBCXX_RANGES || ! defined(__clang__)
 	struct Empty {};
 	
@@ -33,6 +34,7 @@
 	};
 
 #endif
+
 
 
 

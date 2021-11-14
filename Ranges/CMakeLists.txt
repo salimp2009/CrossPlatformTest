@@ -91,6 +91,9 @@ add_library(RangesTestLib
 		src/RangesViewsComponents.hpp	
         src/RangesCompileTimeSize.hpp
         src/RangesCompileTimeSize.cpp
+        src/NTTP/NTTP.hpp 
+        src/NTTP/NTTP.cpp
+        src/NTTP/NTTPUtils.hpp
  )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")

@@ -8,24 +8,16 @@
 #include "Coroutines/CoroutinesCustomAllocator.hpp"
 
 #include <list>
-
-
-
-#if _GLIBCXX_RANGES 
-	void foo()
-	{
-		std::pmr::map<int, std::pair<int, int>> tags;
-		tags[0] = { 5,5 };
-		std::printf("first: %d, second: %d\n", tags[0].first, tags[0].second);
-	}
-	
-#endif
+#include <stdalign.h>
 
 int main()
 {
-#if _GLIBCXX_RANGES 
-		foo();
-#endif
+
+	alignas(16) float values[16] = { 0.0f,1.0f,4.0f,9.0f,
+									-16.0f,25.0f,36.0f,49.0f,
+									64.0f,81.0f,100.0f,121.0f,
+									144.0f,169.0f,196.0f,225.0f };
+
 
 	std::vector<int> vec1{ 1,2,3,4,5,6,7,8,9,10 };
 	auto noOfDeletedElems = std::erase_if(vec1, [](auto&& elem) { return elem % 2 == 0; });

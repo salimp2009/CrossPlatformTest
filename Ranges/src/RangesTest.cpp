@@ -3,9 +3,12 @@
 #include "RangesBasic.hpp"
 #include "RangesViewsComponents.hpp"
 #include "RangesCompileTimeSize.hpp"
+#include "NTTP/NTTP.hpp"
+
 
 int main()
 {
+	
 	std::puts("Hello Ranges\n");
 #if defined __GNUG__  || defined _MSC_VER && !defined(__clang__)
 
@@ -39,5 +42,7 @@ int main()
 #endif
 	Ranges_CountedIterator();
 	Ranges_CommonIterator();
+	NTTP_floatingPoints();
+
 #endif
 }

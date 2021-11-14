@@ -6,13 +6,14 @@
 template<typename T, typename...Args>
 consteval auto mergeValues(T rng, Args&&... args)
 {
+	constexpr auto maxSz = rng.size() + sizeof...(args);     // OK
+
 	//auto cmnRng = std::views::common(rng);
 	std::vector<std::ranges::range_value_t<T>> tmpVec{ std::ranges::begin(rng), std::ranges::end(rng) };
 	(..., tmpVec.push_back(std::forward<Args>(args)));
 
 	std::ranges::sort(tmpVec);
 
-	constexpr auto maxSz = rng.size() + sizeof...(args);     // OK
 	std::array<std::ranges::range_value_t<T>, maxSz> arr{}; // OK
 	auto res = std::ranges::unique_copy(tmpVec, arr.begin());
 	return std::pair{ arr, res.out - arr.begin() };
@@ -104,6 +105,7 @@ void Ranges_CountedIterator()
 
 }
 
+
 struct Starmatch
 {
 	auto operator==(auto pos) const
@@ -133,6 +135,7 @@ void Ranges_CommonIterator()
 	auto rng = v | std::views::take_while([](std::string_view name) { return name != "Semsi"; }) | std::views::common;
 	FireCopy(rng.begin(), rng.end());
 
+	
 	auto rng2 = std::ranges::subrange(starNames.begin(), Starmatch{});
 
 	std::puts("");
@@ -140,6 +143,8 @@ void Ranges_CommonIterator()
 	{
 		std::printf("%s ", name.c_str());
 	}
+
+	std::puts("");
 }
 
 
