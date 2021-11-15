@@ -6,6 +6,7 @@
 #include "NTTP/NTTP.hpp"
 
 
+
 int main()
 {
 	
@@ -43,6 +44,6 @@ int main()
 	Ranges_CountedIterator();
 	Ranges_CommonIterator();
 	NTTP_floatingPoints();
-
+	NTTP_FixedString();
 #endif
 }

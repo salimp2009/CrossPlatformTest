@@ -94,13 +94,14 @@ add_library(RangesTestLib
         src/NTTP/NTTP.hpp 
         src/NTTP/NTTP.cpp
         src/NTTP/NTTPUtils.hpp
- )
+        src/NTTP/NTTPFixedString.hpp
+  )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 target_link_libraries(RangesTestLib PRIVATE CommonPCH)
 
-add_executable (RangeTest src/RangesTest.cpp "src/RangesCompileTimeSize.hpp") 
+add_executable (RangeTest src/RangesTest.cpp) 
 # if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
 # if only Ranges needs the specified list then use PRIVATE
 target_link_libraries(RangeTest PRIVATE RangesTestLib)
