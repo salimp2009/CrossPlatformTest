@@ -28,7 +28,14 @@ void NTTP_FixedString()
 	std::puts("---NTTP_FixedString---");
 	constexpr fixedString fsTest{ "hello didokimin" };
 
+	FormatString<"you have a size"> fstr1{};
+	std::printf("%li", fstr1.numArgs);
+	std::puts("");
+
 	fixedStringContainer<"yow yow!!"> fsc{};
 
 	fsc.print();
+	std::puts("");
+
+
 }

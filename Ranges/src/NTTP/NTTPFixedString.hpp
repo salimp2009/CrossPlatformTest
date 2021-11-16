@@ -4,21 +4,14 @@
 template<typename CharT, std::size_t N>
 struct fixedString
 {
-	CharT data[N];
+	CharT data[N]{};
 
 	constexpr fixedString(const CharT(&str)[N])
 	{
-		//std::ranges::copy_n(str, N, data);
 		std::copy_n(str, N, data);
 	}
 };
 
-
-template<fixedString Str>
-struct fixedStringContainer
-{
-	void print() { std::printf("%s", Str.data ); }
-};
 
 template<fixedString Str>
 struct FormatString
@@ -27,12 +20,29 @@ struct FormatString
 
 	static constexpr auto numArgs = std::ranges::count(fmt.data, '%');
 
-	// the book version is operator const auto ????? an also & 
-	const auto operator*() const { return fmt.data; }
+	// this is a conversion operator overload; e.g. operator int() {}
+	//  see https://en.cppreference.com/w/cpp/language/cast_operator
+	operator const auto*() const { return fmt.data; }
 };
 
-void print(auto fmt, auto&&... args)
+template<fixedString Str>
+constexpr auto operator""_fs()
+{
+	return FormatString<Str>{};
+}
+
+template<typename... Ts>
+void print(auto fmt, const Ts&... args)
 {
 	// if std::forward does not work then use args...
-	std::printf(fmt, std::forward<decltype(args)>(args)...);
+
+	static_assert(fmt.numArgs == sizeof...(Ts));
+	std::printf(fmt, args...);
 }
+
+// this will be deleted
+template<fixedString Str>
+struct fixedStringContainer
+{
+	void print() { std::printf("%s", Str.data); }
+};
