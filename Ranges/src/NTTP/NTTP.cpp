@@ -28,14 +28,19 @@ void NTTP_FixedString()
 	std::puts("---NTTP_FixedString---");
 	constexpr fixedString fsTest{ "hello didokimin" };
 
-	FormatString<"you have a size"> fstr1{};
+	FormatString<"%s %s \n"> fstr1{};
 	std::printf("%li", fstr1.numArgs);
 	std::puts("");
+	print(fstr1, "hello", "oops");
 
 	fixedStringContainer<"yow yow!!"> fsc{};
-
 	fsc.print();
+
 	std::puts("");
+
+	// intellisense gives false errors; it compiles and works :)
+	print("%s\n"_fs, "does this work ???");
+	print("%s , %i \n"_fs, "Didoski is my Queen", 20);
 
 
 }

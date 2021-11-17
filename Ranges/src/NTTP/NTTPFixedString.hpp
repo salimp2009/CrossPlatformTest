@@ -31,6 +31,29 @@ constexpr auto operator""_fs()
 	return FormatString<Str>{};
 }
 
+template<typename T, typename U>
+constexpr bool plainSame_v = std::is_same_v<std::remove_cvref_t<T>, std::remove_cvref_t<U>>;
+
+// Added this to test if using Concept is better probably not much better because each case is different for the match function
+template<typename T, typename U>
+concept AsPlainSafe = plainSame_v<T, U> && plainSame_v<U, T>;
+
+template<typename T>
+constexpr static bool match(const char c)
+{
+	switch (c)
+	{
+		case 'd': return plainSame_v<int, T>;
+		case 'c': return plainSame_v<char, T>;
+		case 'f': return plainSame_v<double, T>;
+		case 's': return (plainSame_v<char, std::remove_all_extents_t<T>> && std::is_array_v<T>)			// std::remove_all_extents_t ; gives the value removing all the array info
+					  || (plainSame_v<char*, std::remove_all_extents_t<T>> && std::is_pointer_v<T>);
+	}
+	return false;
+}
+
+
+
 template<typename... Ts>
 void print(auto fmt, const Ts&... args)
 {
@@ -40,7 +63,7 @@ void print(auto fmt, const Ts&... args)
 	std::printf(fmt, args...);
 }
 
-// this will be deleted
+// this maybe be deleted; Used for testing the fixedString works as a template parameter (NTTP)
 template<fixedString Str>
 struct fixedStringContainer
 {
