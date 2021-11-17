@@ -53,6 +53,31 @@ constexpr static bool match(const char c)
 }
 
 
+template<std::size_t I, typename CharT>
+constexpr auto get(const std::span<const CharT>& str)
+{
+	auto start	= std::begin(str);
+	auto end	= std::end(str);
+
+	// find the position of identfier after each %
+	// I is an index sequence to go thru each identifier one by one
+	// once the identifier is found return the value at position to IsMatching function to be checked if matches the argument type
+	for (int i = 0; i <= I; ++i)
+	{
+		start = std::ranges::find(start, end, '%');
+		++start;
+	}
+	return *start;
+}
+
+template<typename CharT, typename... Args>
+constexpr bool IsMatching(std::span<const CharT> str, Args... args)
+{
+	return[&]<std::size_t... I>(std::index_sequence<I...>)
+	{
+		return ((match<Args>(get<I>(args))) && ...);
+	}(std::make_index_sequence<sizeof...(Args)>{});
+}
 
 template<typename... Ts>
 void print(auto fmt, const Ts&... args)
