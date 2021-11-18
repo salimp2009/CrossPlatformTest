@@ -53,7 +53,7 @@ constexpr static bool match(const char c)
 }
 
 
-template<std::size_t I, typename CharT>
+template<int I, typename CharT>
 constexpr auto get(const std::span<const CharT>& str)
 {
 	auto start	= std::begin(str);
@@ -71,11 +71,11 @@ constexpr auto get(const std::span<const CharT>& str)
 }
 
 template<typename CharT, typename... Args>
-constexpr bool IsMatching(std::span<const CharT> str, Args... args)
+constexpr bool IsMatching(std::span<const CharT> str)
 {
 	return[&]<std::size_t... I>(std::index_sequence<I...>)
 	{
-		return ((match<Args>(get<I>(args))) && ...);
+		return ((match<Args>(get<I>(str))) && ...);
 	}(std::make_index_sequence<sizeof...(Args)>{});
 }
 
@@ -86,6 +86,8 @@ void print(auto fmt, const Ts&... args)
 
 	static_assert(fmt.numArgs == sizeof...(Ts));
 	std::printf(fmt, args...);
+
+	IsMatching<std::decay_t<decltype(fmt.fmt.data[0])>, Ts...>(fmt.fmt.data);
 }
 
 // this maybe be deleted; Used for testing the fixedString works as a template parameter (NTTP)
