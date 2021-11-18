@@ -43,9 +43,16 @@ constexpr static bool match(const char c)
 {
 	switch (c)
 	{
-		case 'd': return plainSame_v<int, T>;
+		case 'd': [[fallthrough]];
+		case 'i': return plainSame_v<int, T>;
 		case 'c': return plainSame_v<char, T>;
+		case 'e': [[fallthrough]];
+		case 'a': [[fallthrough]];
+		case 'g': [[fallthrough]];
 		case 'f': return plainSame_v<double, T>;
+		case 'p': return std::is_pointer_v<T>;
+		case 'x': [[fallthrough]];
+		case 'o': return plainSame_v<unsigned, T>;
 		case 's': return (plainSame_v<char, std::remove_all_extents_t<T>> && std::is_array_v<T>)			// std::remove_all_extents_t ; gives the value removing all the array info
 					  || (plainSame_v<char*, std::remove_all_extents_t<T>> && std::is_pointer_v<T>);
 	}
@@ -85,9 +92,17 @@ void print(auto fmt, const Ts&... args)
 	// if std::forward does not work then use args...
 
 	static_assert(fmt.numArgs == sizeof...(Ts));
-	std::printf(fmt, args...);
+	
+	static_assert(IsMatching<std::decay_t<decltype(fmt.fmt.data[0])>, Ts...>(fmt.fmt.data));
 
-	IsMatching<std::decay_t<decltype(fmt.fmt.data[0])>, Ts...>(fmt.fmt.data);
+	std::printf(fmt, args...);
+}
+
+
+// this will for special cases and runtime only
+void print(const char* str, const auto&... args)
+{
+	std::printf(str,	args...);
 }
 
 // this maybe be deleted; Used for testing the fixedString works as a template parameter (NTTP)

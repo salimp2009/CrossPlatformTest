@@ -37,10 +37,13 @@ void NTTP_FixedString()
 	fsc.print();
 
 	std::puts("");
-
+	int myVal = 5;
+	int* p = &myVal;
 	// intellisense gives false errors; it compiles and works :)
 	print("%s\n"_fs, "does this work ???");
-	print("%s , %i \n"_fs, "Didoski is my Queen", 20);
+	print("%s %d %a %p \n"_fs, "Didoski is my Queen", 20, 40.50, p);
 
+	auto myPrincess = "my princess is Didemoski !!";
+	print("%s %i \n", "Didoski is my Queen", 455);
 
 }
