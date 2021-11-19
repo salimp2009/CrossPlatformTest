@@ -95,7 +95,9 @@ add_library(RangesTestLib
         src/NTTP/NTTP.cpp
         src/NTTP/NTTPUtils.hpp
         src/NTTP/NTTPFixedString.hpp
-  )
+        src/CompileTimeThings/CompileRunTime.hpp
+        src/CompileTimeThings/CompileRunTime.cpp
+ )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 

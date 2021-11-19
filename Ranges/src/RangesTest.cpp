@@ -4,6 +4,7 @@
 #include "RangesViewsComponents.hpp"
 #include "RangesCompileTimeSize.hpp"
 #include "NTTP/NTTP.hpp"
+#include "CompileTimeThings/CompileRunTime.hpp"
 
 
 
@@ -45,5 +46,7 @@ int main()
 	Ranges_CommonIterator();
 	NTTP_floatingPoints();
 	NTTP_FixedString();
+	CompileTimevsRunTime();
+
 #endif
 }

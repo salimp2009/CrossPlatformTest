@@ -44,6 +44,11 @@ void NTTP_FixedString()
 	print("%s %d %a %p \n"_fs, "Didoski is my Queen", 20, 40.50, p);
 
 	auto myPrincess = "my princess is Didemoski !!";
-	print("%s %i \n", "Didoski is my Queen", 455);
+	print("%s %i \n"_fs, "Didoski is my Queen", 455);
+
+	// this is the case where user forgets the _fs literal to specify the identifiers as formatString
+	// It will not Compile on purpose
+	//print("%s %i \n", "Didoski is my Queen", 455);
+
 
 }

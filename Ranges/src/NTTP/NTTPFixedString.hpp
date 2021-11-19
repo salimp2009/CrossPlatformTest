@@ -91,18 +91,29 @@ void print(auto fmt, const Ts&... args)
 {
 	// if std::forward does not work then use args...
 
-	static_assert(fmt.numArgs == sizeof...(Ts));
+	static_assert(fmt.numArgs == sizeof...(Ts), "Too many Arguments!");
 	
-	static_assert(IsMatching<std::decay_t<decltype(fmt.fmt.data[0])>, Ts...>(fmt.fmt.data));
+	static_assert(IsMatching<std::decay_t<decltype(fmt.fmt.data[0])>, Ts...>(fmt.fmt.data), "Data dont match Identifiers!");
 
 	std::printf(fmt, args...);
 }
 
 
 // this will for special cases and runtime only
-void print(const char* str, const auto&... args)
+void print(char* str, const auto&... args)
 {
-	std::printf(str,	args...);
+	std::printf(str,		args...);
+}
+
+// Tis Overload is for the case when user forgets to use the _fs literal ""_fs; 
+// it will be always with a nicer error message
+template<typename...>
+constexpr bool always_false_v = false;
+
+template<typename...Ts>
+void print(const char* str, const Ts&... args)
+{
+	static_assert(always_false_v<Ts...>, "Please Use _fs!");
 }
 
 // this maybe be deleted; Used for testing the fixedString works as a template parameter (NTTP)
