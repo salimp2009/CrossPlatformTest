@@ -47,6 +47,7 @@ int main()
 	NTTP_floatingPoints();
 	NTTP_FixedString();
 	CompileTimevsRunTime();
+	SetPointsCompileTime();
 
 #endif
 }
