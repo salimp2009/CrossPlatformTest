@@ -102,7 +102,7 @@ void print(auto fmt, const Ts&... args)
 // this will for special cases and runtime only
 void print(char* str, const auto&... args)
 {
-	std::printf(str,		args...);
+	std::printf(str, args...);
 }
 
 // Tis Overload is for the case when user forgets to use the _fs literal ""_fs; 

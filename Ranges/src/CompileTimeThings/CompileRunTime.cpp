@@ -32,7 +32,26 @@ void ThrowinConstExprFunction()
 	}
 	catch (const std::exception& e)
 	{
-		std::printf("%s", e.what());
+		std::printf("%s \n", e.what());
+	}
+	catch (...)
+	{
+		std::puts("Runtime unknow error !!\n");
+	}
+
+	// the constexpr function throws during compile time if true is passed otherwise works ok !
+	static_assert(!FunCheckWithConstExpr(false));
+	// this will not compile because there is throw if it true is passed ; therefore cannot be used for compile time check
+	//static_assert(FunCheckWithConstExpr(true));
+
+	// this is OK becausealthough it throws it is used at runtime
+	try
+	{
+		auto val = FunCheckWithConstExpr(true);
+	}
+	catch (const std::exception& e)
+	{
+		std::printf("%s \n", e.what());
 	}
 	catch (...)
 	{

@@ -45,3 +45,13 @@ constexpr double divideInt(int divide, int divisor)
 
 	return static_cast<double>(divide)/divisor;
 }
+
+constexpr bool FunCheckWithConstExpr(bool b)
+{
+	if (b) 
+	{ 
+		throw int(45); 
+	}
+
+	return false;
+}
