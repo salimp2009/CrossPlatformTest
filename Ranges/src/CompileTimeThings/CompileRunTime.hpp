@@ -1,7 +1,9 @@
 #pragma once
 
+
 void CompileTimevsRunTime();
 void SetPointsCompileTime();
+void ThrowinConstExprFunction();
 
 
 consteval std::size_t StrLength(const char* str)
@@ -30,4 +32,16 @@ constexpr Point movePoint(Point p, double x, double y)
 	p.SetY(p.GetY() + y);
 
 	return p;
+}
+
+constexpr double divideInt(int divide, int divisor)
+{
+	if (0==divisor)
+	{
+		// if this runtime it is OK to use in constexpr but if divisor is compile time known argument 
+		// than compile time error !
+		throw std::overflow_error("Divide by Zero Not Allowed !");
+	}
+
+	return static_cast<double>(divide)/divisor;
 }

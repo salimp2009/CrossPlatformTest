@@ -48,6 +48,7 @@ int main()
 	NTTP_FixedString();
 	CompileTimevsRunTime();
 	SetPointsCompileTime();
+	ThrowinConstExprFunction();
 
 #endif
 }
