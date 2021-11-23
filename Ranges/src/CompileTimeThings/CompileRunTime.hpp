@@ -1,9 +1,11 @@
 #pragma once
+#include "NTTP/NTTPFixedString.hpp"
 
 
 void CompileTimevsRunTime();
 void SetPointsCompileTime();
 void ThrowinConstExprFunction();
+
 
 
 consteval std::size_t StrLength(const char* str)
@@ -54,4 +56,23 @@ constexpr bool FunCheckWithConstExpr(bool b)
 	}
 
 	return false;
+}
+template<typename... Args>
+constexpr void Log(std::string_view fmt, Args&&...args)
+{
+	if (not std::is_constant_evaluated())
+	{
+		// checking the argument size; need to check argument type match identifiers!! 
+		auto fmtView = std::views::counted(fmt.data(), fmt.size());
+		auto numArgs = std::ranges::count(fmtView, '%');
+		assert(numArgs == sizeof...(Args));
+		printf(fmt.data(), args...);
+	}
+}
+
+constexpr bool Fun()
+{
+	using namespace std::string_view_literals;
+	Log("Logging : %s"sv, "hope it works");
+	return true;
 }

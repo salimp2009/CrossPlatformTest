@@ -57,6 +57,9 @@ void ThrowinConstExprFunction()
 	{
 		std::puts("Runtime unknow error !!");
 	}
+
+	// using std::is_constant_evulated() to
+	auto val = Fun();
 }
 
 	
