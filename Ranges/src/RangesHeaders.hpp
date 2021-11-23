@@ -3,6 +3,10 @@
 #include <cstdio>
 #include <iostream>
 #include <cassert>
+#include <bit>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
 #include <type_traits>
 #include <algorithm>
 #include <span>

@@ -1,7 +1,6 @@
 #pragma once
 #include "NTTP/NTTPFixedString.hpp"
 
-
 void CompileTimevsRunTime();
 void SetPointsCompileTime();
 void ThrowinConstExprFunction();
