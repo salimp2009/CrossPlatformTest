@@ -45,10 +45,13 @@ int main()
 	Ranges_CountedIterator();
 	Ranges_CommonIterator();
 	NTTP_floatingPoints();
-	NTTP_FixedString();
+	
 	CompileTimevsRunTime();
 	SetPointsCompileTime();
 	ThrowinConstExprFunction();
-
+#endif
+#if defined (__GNUG__)  || !defined _MSC_VER && defined(__clang__)
+	// MC_VER has a bug fixed VS2022 toolset
+	NTTP_FixedString();
 #endif
 }

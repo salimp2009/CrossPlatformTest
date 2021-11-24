@@ -210,8 +210,8 @@ namespace CustomAlloc
 
 	using FSM = generator<std::string, false>;
 
-	static const std::byte ESC{ 'H' };
-	static const std::byte SOF{ 0x10 };
+	//constinit static const std::byte ESC{ 'H' };
+	//constinit static const std::byte SOF{ 0x10 };
 
 
 	// the stream is passed by reference into the parse; 

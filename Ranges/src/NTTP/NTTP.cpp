@@ -23,12 +23,14 @@ void NTTP_floatingPoints()
 
 }
 
+#if defined (__GNUG__)  || !defined _MSC_VER && !defined(__clang__)
 void NTTP_FixedString()
 {
 	std::puts("---NTTP_FixedString---");
 	constexpr fixedString fsTest{ "hello didokimin" };
 
 	FormatString<"%s %s \n"> fstr1{};
+	// MSC_V complain with %li
 	std::printf("%li", fstr1.numArgs);
 	std::puts("");
 	print(fstr1, "hello", "oops");
@@ -49,6 +51,5 @@ void NTTP_FixedString()
 	// this is the case where user forgets the _fs literal to specify the identifiers as formatString
 	// It will not Compile on purpose
 	//print("%s %i \n", "Didoski is my Queen", 455);
-
-
 }
+#endif
