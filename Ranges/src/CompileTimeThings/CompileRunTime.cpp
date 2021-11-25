@@ -61,6 +61,20 @@ void ThrowinConstExprFunction()
 
 	// using std::is_constant_evulated() to
 	auto val = Fun();
+	std::puts("");
 }
 
+void ByteSwap_CompileRunTime()
+{
+	std::puts("--ByteSwap_CompileRunTime--");
 	
+	std::puts("Compile Time Path OK");
+	static_assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412);
+	static_assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
+	static_assert(ByteSwap(std::uint16_t(0x1234)) == 0x3412);
+
+	std::puts("Run Time Path OK");
+	assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412);
+	assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
+	assert(ByteSwap(std::uint16_t(0x1234)) == 0x3412);
+}

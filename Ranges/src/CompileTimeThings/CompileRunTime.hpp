@@ -4,6 +4,7 @@
 void CompileTimevsRunTime();
 void SetPointsCompileTime();
 void ThrowinConstExprFunction();
+void ByteSwap_CompileRunTime();
 
 
 

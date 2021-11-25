@@ -54,4 +54,7 @@ int main()
 	// MC_VER has a bug fixed VS2022 toolset
 	NTTP_FixedString();
 #endif
+	ByteSwap_CompileRunTime();
+
+
 }
