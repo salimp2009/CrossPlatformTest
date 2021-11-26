@@ -55,6 +55,7 @@ int main()
 	NTTP_FixedString();
 #endif
 	ByteSwap_CompileRunTime();
+	CompileTime_VirtualMembers();
 
 
 }

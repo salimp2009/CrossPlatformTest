@@ -9,6 +9,7 @@
 #include <utility>
 #include <type_traits>
 #include <algorithm>
+#include <optional>
 #include <span>
 #include <variant>
 #include <array>
