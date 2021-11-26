@@ -10,6 +10,7 @@
 #include <type_traits>
 #include <algorithm>
 #include <span>
+#include <variant>
 #include <array>
 #include <vector>
 #include <ranges>
