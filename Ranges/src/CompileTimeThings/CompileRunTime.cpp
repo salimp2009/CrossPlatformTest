@@ -83,15 +83,12 @@ void ByteSwap_CompileRunTime()
 void CompileTime_VirtualMembers()
 {
 	std::puts("--CompileTime_VirtualMembers--");
-	// std::optional is not working ; we should have seen 2 destructors but only one prints out
 
-	// this one calls destructor
-	auto c = CreateCar2(1);
-	assert(((*c)->speed()) ==Audi{}.speed());
-	//c.reset();
+
 	
-	
-	// this one does not print any destructor print ????
-	//auto f = FastestCar();
-	//std::printf("fastest carID : %i \n", f);
+	// this GCC gives error somehow uniquePtr deletion is called before it is defined
+	// MSVC & Clang is OK
+	//constexpr auto f = FastestCar2();
+	auto f = FastestCar();
+	std::printf("fastest carID : %i \n", f);
 }

@@ -56,6 +56,6 @@ int main()
 #endif
 	ByteSwap_CompileRunTime();
 	CompileTime_VirtualMembers();
-
+	
 
 }
