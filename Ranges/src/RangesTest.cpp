@@ -48,13 +48,14 @@ int main()
 	
 	CompileTimevsRunTime();
 	SetPointsCompileTime();
-	ThrowinConstExprFunction();
+	//ThrowinConstExprFunction();
 #endif
 #if defined (__GNUG__)  || !defined _MSC_VER && defined(__clang__)
 	// MC_VER has a bug fixed VS2022 toolset
 	NTTP_FixedString();
-#endif
 	ByteSwap_CompileRunTime();
+#endif
+	
 	CompileTime_VirtualMembers();
 	
 

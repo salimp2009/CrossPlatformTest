@@ -1,10 +1,13 @@
 #include "RangesHeaders.hpp"
+#include <cstddef>
+#include <cstdint>
 
 #if defined (_MSC_VER)
 	#include<Winsock.h>
 #else
 	#include <arpa/inet.h>
 #endif
+
 
 constexpr auto ReverseBytes(std::integral auto value)
 {
@@ -44,7 +47,7 @@ constexpr T ByteSwap(T value)
 				// swaps the 32 bit bytes runtime; more efficient since they use platform specific intrinsics
 				return htonl(value);
 			}
-			else if constexpr (std::same_as < T, std::uint16_t>)
+			else if constexpr (std::same_as<T, std::uint16_t>)
 			{
 				// 16bit swapping function
 				return htons(value);
@@ -52,4 +55,10 @@ constexpr T ByteSwap(T value)
 		}
 	}
 }
+
+
+static_assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412);
+static_assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
+static_assert(ByteSwap(std::uint16_t(0x1234)) == 0x3412);
+static_assert(ByteSwap(std::uint8_t(0x12)) == 0x12);
 

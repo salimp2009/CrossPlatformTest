@@ -35,7 +35,7 @@ constexpr uniquePtr<Car> CreateCar(int val)
 	return nullptr;
 }
 
-constexpr int FastestCar()
+constexpr inline int FastestCar()
 {
 	int MaxSpeed = -1;
 	int MaxID = -1;

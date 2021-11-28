@@ -79,6 +79,7 @@ void Ranges_CountedIterator()
 	// std::counted_iterator is an iterator that has a count to specify the end of a range
 	std::vector vec{ 1,2,3,3,4,5,6,7,8,9 };
 
+#if !defined (_MSC_VER)
 	// check count val is not greater than the vec.size()
 	auto countVal = 4;
 	// if auto is used the type is ptrdiff_t and std::min does not work
@@ -94,6 +95,7 @@ void Ranges_CountedIterator()
 	}
 
 	std::puts(" ");
+#endif
 
 	// pos!=std::default_sentinel means end != vec.end() because we are only using a given number of elems which may not be 
 	// equal to the end ; NOTE the count value + vec.begin() should be at least equal or less than vec.end() in order to avoid 

@@ -3,6 +3,10 @@
 #include "CompileTimeThings/CompileTimeByteSwap.hpp"
 #include "CompileTimeCarRacing.hpp"
 
+#if defined (_MSC_VER)
+	#include<Winsock.h>
+#endif
+
 void CompileTimevsRunTime()
 {
 	std::puts("--CompileTimevsRunTime--");
@@ -65,27 +69,25 @@ void ThrowinConstExprFunction()
 	std::puts("");
 }
 
+#if !defined (_MSC_VER)
 void ByteSwap_CompileRunTime()
 {
 	std::puts("--ByteSwap_CompileRunTime--");
 	
 	std::puts("Compile Time Path OK");
-	static_assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412);
-	static_assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
-	static_assert(ByteSwap(std::uint16_t(0x1234)) == 0x3412);
+
 
 	std::puts("Run Time Path OK");
 	assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412);
 	assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
 	assert(ByteSwap(std::uint16_t(0x1234)) == 0x3412);
 }
+#endif
 
 void CompileTime_VirtualMembers()
 {
 	std::puts("--CompileTime_VirtualMembers--");
 
-
-	
 	// this GCC gives error somehow uniquePtr deletion is called before it is defined
 	// MSVC & Clang is OK
 	//constexpr auto f = FastestCar2();
