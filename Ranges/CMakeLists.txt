@@ -100,6 +100,8 @@ add_library(RangesTestLib
         src/CompileTimeThings/CompileTimeByteSwap.hpp
         src/CompileTimeThings/CompileTimeCarRacing.hpp
         src/CompileTimeThings/ConstexprUniquePtr.hpp
+        src/Views/ViewTests.hpp 
+        src/Views/ViewTests.cpp
   )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")

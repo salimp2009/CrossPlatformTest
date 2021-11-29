@@ -5,7 +5,7 @@
 #include "RangesCompileTimeSize.hpp"
 #include "NTTP/NTTP.hpp"
 #include "CompileTimeThings/CompileRunTime.hpp"
-
+#include "Views/ViewTests.hpp"
 
 
 int main()
@@ -57,6 +57,6 @@ int main()
 #endif
 	
 	CompileTime_VirtualMembers();
-	
+	JoinViewTest1();
 
 }

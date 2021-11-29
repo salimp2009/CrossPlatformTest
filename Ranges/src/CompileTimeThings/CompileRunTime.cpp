@@ -74,9 +74,6 @@ void ByteSwap_CompileRunTime()
 {
 	std::puts("--ByteSwap_CompileRunTime--");
 	
-	std::puts("Compile Time Path OK");
-
-
 	std::puts("Run Time Path OK");
 	assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412);
 	assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
