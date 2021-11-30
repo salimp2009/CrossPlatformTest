@@ -111,6 +111,6 @@ target_link_libraries(RangesTestLib PRIVATE CommonPCH)
 add_executable (RangeTest src/RangesTest.cpp) 
 # if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
 # if only Ranges needs the specified list then use PRIVATE
-target_link_libraries(RangeTest PRIVATE RangesTestLib)
+target_link_libraries(RangeTest PRIVATE project_options RangesTestLib)
 
 
