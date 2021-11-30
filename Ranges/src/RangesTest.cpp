@@ -6,6 +6,7 @@
 #include "NTTP/NTTP.hpp"
 #include "CompileTimeThings/CompileRunTime.hpp"
 #include "Views/ViewTests.hpp"
+#include "CompileTimeThings/ConstEvalUseCases.hpp"
 
 
 int main()
@@ -58,5 +59,6 @@ int main()
 	
 	CompileTime_VirtualMembers();
 	JoinViewTest1();
+	AsConst_ConstEval_Test();
 
 }

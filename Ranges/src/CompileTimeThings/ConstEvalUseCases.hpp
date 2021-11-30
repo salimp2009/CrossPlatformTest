@@ -1,0 +1,15 @@
+#include "RangesHeaders.hpp"
+
+void AsConst_ConstEval_Test();
+
+
+constexpr int ExpensiveCalculation(int base)
+{
+	return base + 1;
+}
+
+
+consteval auto as_constant(auto value)
+{
+	return value;
+}
