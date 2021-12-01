@@ -103,7 +103,9 @@ add_library(RangesTestLib
         src/Views/ViewTests.hpp 
         src/Views/ViewTests.cpp
         src/CompileTimeThings/ConstEvalUseCases.hpp src/CompileTimeThings/ConstEvalUseCases.cpp
- )
+        src/CompileTimeThings/CustomFormatterTypeSafe.hpp 
+        src/CompileTimeThings/ConstexprString.hpp
+  )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
