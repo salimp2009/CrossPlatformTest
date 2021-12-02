@@ -1,10 +1,33 @@
 #include "RangesHeaders.hpp"
 #include "ConstexprString.hpp"
+#include <charconv>
+
+constexpr string itoa(int num, int base = 10)
+{
+	if (num == 0) { return { '0' }; }
+
+	while (num > 0)
+	{
+		const char sub = static_cast<char>(num % base);
+		num /= base;
+
+		const char v = sub + '0';
+		
+		return {};
+	}
+
+}
 
 template<typename T, class... Args>
 constexpr void Formatter(string& buffer, std::string_view v, const T& t, const Args&... args)
 {
+	using PT = std::remove_cv_t<T>;
 
+	if constexpr(std::is_same_v<int, PT>)
+	{
+		if ('d' != v[0]) { throw int{ 3 }; }
+	}
+	buffer.append(itoa(t));
 }
 
 
@@ -31,4 +54,10 @@ using format_string = basic_format_string<std::type_identity_t<Args>...>;
 
 
 template<class... Args>
-string  format(format_string<Args...> fmt, const Args&... args);
+string  format(format_string<Args...> fmt, const Args&... args)
+{
+	string out{};
+	Formatter(out, fmt.str, args...);
+
+	return out;
+}
