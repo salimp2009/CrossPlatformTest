@@ -2,6 +2,7 @@
 #include "CustomFormatterTypeSafe.hpp"
 
 void AsConst_ConstEval_Test();
+void CustomFormatter_WithConstEval();
 
 
 constexpr int ExpensiveCalculation(int base)

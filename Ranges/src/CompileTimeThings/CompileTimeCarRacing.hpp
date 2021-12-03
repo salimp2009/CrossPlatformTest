@@ -10,7 +10,7 @@ struct Car
 
 struct Audi :Car
 {
-	constexpr virtual int speed() const override { return 4; }
+	constexpr virtual int speed() const override { return 7; }
 };
 
 struct Mercedes :Car
@@ -20,7 +20,7 @@ struct Mercedes :Car
 
 struct Hyundai :Car
 {
-	constexpr virtual int speed() const override { return 6	; }
+	constexpr virtual int speed() const override { return 3	; }
 };
 
 

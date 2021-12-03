@@ -14,3 +14,19 @@ void AsConst_ConstEval_Test()
 	++val2;
 
 }
+
+#if defined (__GNUG__)  || !defined _MSC_VER && defined(__clang__)
+void CustomFormatter_WithConstEval()
+{
+	std::puts("--CustomFormatter_WithConstEval--");
+	// the specfiers "ds" are checked against types of arguments during compile time; NOT the values
+	// the actual returned value (string) is runtime since we are using new to create a new string and 
+	// not deleting it during compile time because we use it in runtime 
+	auto str = format("ds", 12547, "hello");
+
+	// now we can use the result of format in runtime
+	std::printf("%s \n", str.data());
+	
+}
+
+#endif

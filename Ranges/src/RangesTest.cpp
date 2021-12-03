@@ -55,10 +55,14 @@ int main()
 	// MC_VER has a bug fixed VS2022 toolset
 	NTTP_FixedString();
 	ByteSwap_CompileRunTime();
+
+	// gives non constexpression but it is constexpr ; bug fixed in VS2022
+	CustomFormatter_WithConstEval();
 #endif
-	
+
 	CompileTime_VirtualMembers();
 	JoinViewTest1();
 	AsConst_ConstEval_Test();
+
 
 }
