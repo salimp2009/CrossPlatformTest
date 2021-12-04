@@ -105,7 +105,9 @@ add_library(RangesTestLib
         src/CompileTimeThings/ConstEvalUseCases.hpp src/CompileTimeThings/ConstEvalUseCases.cpp
         src/CompileTimeThings/CustomFormatterTypeSafe.hpp 
         src/CompileTimeThings/ConstexprString.hpp
-  )
+        src/TemplatesMetaProg/MetaProgramBasics.hpp
+        src/TemplatesMetaProg/MetaProgramBasics.cpp
+ )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
