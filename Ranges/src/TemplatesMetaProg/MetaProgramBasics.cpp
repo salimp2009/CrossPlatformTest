@@ -32,3 +32,4 @@ void MetaProgramming_Test()
 	static_assert(std::is_same_v<void, typename std::add_lvalue_reference_t<void>>);
 
 }
+

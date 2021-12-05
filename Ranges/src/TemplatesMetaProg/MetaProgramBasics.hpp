@@ -9,9 +9,6 @@ struct TypeIdentity { using type = T; };
 template<typename T>
 using TypeIdentity_t = typename TypeIdentity<T>::type;
 
-//alias template
-template<class...>
-using Void_t = void;
 
 //primary template that handles the case there is no type member 
 template<class, class = void>
@@ -28,6 +25,7 @@ struct A {};
 template<typename... Args>
 using typeA =A<TypeIdentity_t<Args>...>;
 
+
 template<typename T, typename=void>
 struct Add_Lvalue_reference: TypeIdentity<T>{ };
 
@@ -37,7 +35,12 @@ struct Add_Lvalue_reference<T, std::void_t<T&>>: TypeIdentity<T&>{ };
 template<typename T>
 using Add_Lvalue_reference_t = typename Add_Lvalue_reference<T>::type;
 
+// to avoid bugs in std::void_t ; alternative implementation 
+template<typename T, typename...>
+struct First : TypeIdentity<T> {};
 
-
+//alias template
+template<class...Ts>
+using Void_t = typename First<void, Ts...>::type;
 
 
