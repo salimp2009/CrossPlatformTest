@@ -10,12 +10,13 @@ void MetaProgramming_Test()
 	static_assert(std::is_same_v<void, std::void_t<int>>);
 	static_assert(std::is_same_v<void, std::void_t<int, char, double>>);
 
-
 	static_assert(std::is_same_v<void, std::void_t<int&>>);
 	static_assert(std::is_same_v<void, std::void_t<void>>);
 
-	// gives a compiler hard error but it should not; it should only fail the static assert
-	//static_assert(std::is_same_v<void, std::void_t<void&>>);
+	// gives a compiler hard error because it is illegal to refer to void
+	//static_assert(std::is_same_v<void, Void_t<void&>>);
+	static_assert(std::is_same_v<void, std::void_t<std::add_lvalue_reference_t<void>>>);
+	static_assert(std::is_same_v<void, Void_t<std::add_lvalue_reference_t<void>>>);
 
 	typeA<int> myintA;
 	static_assert(std::is_same_v<A<int>, decltype(myintA)>);
@@ -30,6 +31,8 @@ void MetaProgramming_Test()
 	static_assert(std::is_same_v<void, typename Add_Lvalue_reference<void>::type>);
 	
 	static_assert(std::is_same_v<void, typename std::add_lvalue_reference_t<void>>);
-
+	
+	static_assert(not recursive_IsInPack<int, char, char, char, float, std::string, char>{});
+	static_assert( recursive_IsInPack<int, char, char, char, float, std::string, std::vector<int>, char, float, int>{});
 }
 

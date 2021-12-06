@@ -43,4 +43,12 @@ struct First : TypeIdentity<T> {};
 template<class...Ts>
 using Void_t = typename First<void, Ts...>::type;
 
+template<typename TargetT, typename... Ts>
+struct recursive_IsInPack : std::false_type {};
+
+template<typename TargetT, typename... RestTs>
+struct recursive_IsInPack<TargetT, TargetT, RestTs...>: std::true_type{};
+
+template<typename TargetT, typename TFirst, typename... RestTs>
+struct recursive_IsInPack<TargetT, TFirst, RestTs...>: recursive_IsInPack<TargetT, RestTs...> { };
 
