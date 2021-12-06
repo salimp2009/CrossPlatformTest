@@ -34,5 +34,16 @@ void MetaProgramming_Test()
 	
 	static_assert(not recursive_IsInPack<int, char, char, char, float, std::string, char>{});
 	static_assert( recursive_IsInPack<int, char, char, char, float, std::string, std::vector<int>, char, float, int>{});
+
+	// Examples where std::void_t fails but custom Void_t implementation does not
+	// this one uses Void_T which used indirect aliasing
+	func<One>();
+	func<Two>();
+
+	// this example uses std::void_t and does not compile
+	//func2<One>();
+
+
+
 }
 
