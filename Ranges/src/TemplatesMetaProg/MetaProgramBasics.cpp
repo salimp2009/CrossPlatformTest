@@ -44,6 +44,10 @@ void MetaProgramming_Test()
 	//func2<One>();
 
 
+	BartFart<int, float> bf1{};
+	BartFart<TType, UType> bf2{};
+
+	
 
 }
 

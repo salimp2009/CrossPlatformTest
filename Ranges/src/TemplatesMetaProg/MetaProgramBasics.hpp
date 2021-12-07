@@ -38,10 +38,9 @@ void func() { static_assert(std::is_same_v<T, decltype(Two())>);  }
 // Second Example where std::void_t was supposed to fail due to C++ standart internal bug
 // But it does not; !!!!
 template<typename T, typename U> struct BartSimpson;
-template<typename T, typename U, typename = void> struct BartFart;
+template<typename T, typename U, typename = void> struct BartFart {} ;
 
 // TODO; check this example std::void_t was supposed to fail but it compiles
-
 template<typename T, typename U> 
 //struct BartFart<T, U, std::void_t<decltype(BartSimpson<T, U>::value)>> { };
 struct BartFart<T, U, Void_t<decltype(BartSimpson<T, U>::value)>> { };
@@ -49,8 +48,10 @@ struct BartFart<T, U, Void_t<decltype(BartSimpson<T, U>::value)>> { };
 // TODO; check this example std::void_t was supposed to fail but it compiles
 template<typename T, typename U> 
 //struct BartFart<T, U, std::void_t<decltype(T::zz), decltype(U::yy)>> { };
-struct BartFart<T, U, Void_t<decltype(T::zz), decltype(U::yy)>> { };
+struct BartFart<T, U, Void_t<decltype(T::zz), decltype(U::yy) >> { };
 
+struct TType { int zz{}; };
+struct UType { float yy{}; };
 
 //primary template that handles the case there is no type member 
 template<class, class = void>
