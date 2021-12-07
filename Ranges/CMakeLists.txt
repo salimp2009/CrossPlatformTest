@@ -107,6 +107,7 @@ add_library(RangesTestLib
         src/CompileTimeThings/ConstexprString.hpp
         src/TemplatesMetaProg/MetaProgramBasics.hpp
         src/TemplatesMetaProg/MetaProgramBasics.cpp
+        src/TemplatesMetaProg/NamedTuppleImp.hpp
  )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")

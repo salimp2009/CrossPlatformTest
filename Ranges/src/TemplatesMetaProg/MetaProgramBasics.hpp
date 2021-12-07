@@ -82,10 +82,35 @@ template<typename TargetT, typename... Ts>
 struct recursive_IsInPack : std::false_type {};
 
 template<typename TargetT, typename... RestTs>
-struct recursive_IsInPack<TargetT, TargetT, RestTs...>: std::true_type{};
+struct recursive_IsInPack<TargetT, TargetT, RestTs...>: std::true_type
+{
+
+};
 
 template<typename TargetT, typename TFirst, typename... RestTs>
 struct recursive_IsInPack<TargetT, TFirst, RestTs...>: recursive_IsInPack<TargetT, RestTs...> { };
 
+// TODO; test this 
+template<typename... Args>
+//using recursive_pack = recursive_IsInPack<std::type_identity_t<Args>...>;
+using recursive_pack = recursive_IsInPack<TypeIdentity_t<Args>...>;
 
+template<typename... Args>
+consteval decltype(auto) packArgs(Args... args) 
+{
+	return recursive_pack<Args...>{}.value;
+}
 
+namespace detail
+{
+// Example to test std::void_t and Void_t; Both compiles with GCC ; TODO ; test with Clang, MSVC
+// e.g: if the type T can be incremented t.operator++() should return T&
+template<typename T, std::void_t<decltype(++std::declval<T&>())>* = nullptr>
+T& blarg_impl(T& t) { return ++t; }
+
+} // end of namespace detail
+
+inline constexpr auto blargLamda = [](auto& x) ->decltype(detail::blarg_impl(x))
+{ return detail::blarg_impl(x); };
+
+struct Bar {};

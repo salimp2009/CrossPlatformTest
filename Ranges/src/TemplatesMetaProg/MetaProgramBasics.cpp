@@ -1,5 +1,6 @@
 #include "RangesHeaders.hpp"
 #include "MetaProgramBasics.hpp"
+#include "NamedTuppleImp.hpp"
 
 
 void MetaProgramming_Test()
@@ -35,6 +36,11 @@ void MetaProgramming_Test()
 	static_assert(not recursive_IsInPack<int, char, char, char, float, std::string, char>{});
 	static_assert( recursive_IsInPack<int, char, char, char, float, std::string, std::vector<int>, char, float, int>{});
 
+	constexpr auto val = packArgs(1, 'c', 'c', 333);
+	static_assert(val);
+
+	std::printf("%i", val);
+
 	// Examples where std::void_t fails but custom Void_t implementation does not
 	// this one uses Void_T which used indirect aliasing
 	func<One>();
@@ -43,11 +49,12 @@ void MetaProgramming_Test()
 	// this example uses std::void_t and does not compile
 	//func2<One>();
 
-
 	BartFart<int, float> bf1{};
 	BartFart<TType, UType> bf2{};
 
-	
+	static_assert(std::is_invocable_v<decltype(blargLamda), int&>);
+
+	static_assert(not std::is_invocable_v<decltype(blargLamda), Bar&>);
 
 }
 
