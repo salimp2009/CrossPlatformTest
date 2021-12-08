@@ -82,10 +82,7 @@ template<typename TargetT, typename... Ts>
 struct recursive_IsInPack : std::false_type {};
 
 template<typename TargetT, typename... RestTs>
-struct recursive_IsInPack<TargetT, TargetT, RestTs...>: std::true_type
-{
-
-};
+struct recursive_IsInPack<TargetT, TargetT, RestTs...>: std::true_type{ };
 
 template<typename TargetT, typename TFirst, typename... RestTs>
 struct recursive_IsInPack<TargetT, TFirst, RestTs...>: recursive_IsInPack<TargetT, RestTs...> { };
@@ -100,6 +97,24 @@ consteval decltype(auto) packArgs(Args... args)
 {
 	return recursive_pack<Args...>{}.value;
 }
+
+
+template<std::size_t N, bool TCond=true>
+requires( N<=std::numeric_limits<unsigned char>::max())
+constexpr auto packNArgs()
+{
+	return [&]<std::size_t... Idx>(std::index_sequence<Idx...>) 
+	{
+		if constexpr(TCond)
+			return recursive_pack<int, decltype(static_cast<char>(Idx))..., int>{}.value;
+		else
+			return recursive_pack<int, decltype(static_cast<char>(Idx))...>{}.value;
+	// the test numbers is limitted to 255 ; to increase multiply N by 2 or 3 ...etc which can be a template parameter 
+	// if the total number template instantiation exceeds 900; it will fail; you have to use "-ftemplate-depth=number" as compile time def.
+	// this is only meant to test otherwise use ranges
+	}(std::make_index_sequence<N>{});
+}
+
 
 namespace detail
 {

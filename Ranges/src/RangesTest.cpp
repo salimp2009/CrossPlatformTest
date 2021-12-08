@@ -8,6 +8,7 @@
 #include "Views/ViewTests.hpp"
 #include "CompileTimeThings/ConstEvalUseCases.hpp"
 #include "TemplatesMetaProg/MetaProgramBasics.hpp"
+#include "NTTP/NamedTupple.hpp"
 
 int main()
 {
@@ -59,10 +60,9 @@ int main()
 	// gives non constexpression but it is constexpr ; bug fixed in VS2022
 	CustomFormatter_WithConstEval();
 #endif
-
 	CompileTime_VirtualMembers();
 	JoinViewTest1();
 	AsConst_ConstEval_Test();
 	MetaProgramming_Test();
-
+	NamedTupple_Test();
 }

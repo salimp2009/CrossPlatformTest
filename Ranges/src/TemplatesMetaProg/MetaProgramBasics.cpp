@@ -39,7 +39,15 @@ void MetaProgramming_Test()
 	constexpr auto val = packArgs(1, 'c', 'c', 333);
 	static_assert(val);
 
-	std::printf("%i", val);
+	// if you give 255 ; it will be testing 255*2
+	constexpr auto val2 = packNArgs<255, false>();
+	static_assert(!val2);
+	
+	constexpr auto val3 = packNArgs<std::numeric_limits<signed char>::max(), true>();
+	static_assert(val3);
+
+	std::printf("false case:% i, true case:%i \n", val2, val3);
+	std::printf("max size of signed char:%i \n", std::numeric_limits<unsigned char>::max());
 
 	// Examples where std::void_t fails but custom Void_t implementation does not
 	// this one uses Void_T which used indirect aliasing
