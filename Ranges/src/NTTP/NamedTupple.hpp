@@ -1,5 +1,17 @@
 #include "RangesHeaders.hpp"
 
+#include <algorithm>
+#include <any>
+#include <experimental/iterator>
+#include <iostream>
+#include <iterator>
+#include <string_view>
+#include <tuple>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+
 void NamedTupple_Test();
 
 template<typename TChar, std::size_t N>
@@ -17,7 +29,7 @@ struct fixed_string
 	// if you use both then compiler error for ambigiues overloading
 	//constexpr explicit(false) fixed_string(const TChar* str)
 	//{
-	//	std::copy_n(str, N+1, data);
+	//	std::copy_n(str, N, data);
 	//}
 
 	constexpr explicit(false) operator std:: string_view() const
@@ -33,7 +45,18 @@ struct fixed_string
 };
 
 template<std::size_t N>
-fixed_string(const char(&)[N])->fixed_string<char, N>;
+fixed_string(const char*)->fixed_string<char, N>;
+
+// this is to test during implementation ; will be revised afterwards
+template<fixed_string Name>
+constexpr auto operator""_t()
+{
+	return Name;
+}
+
+
+
+
 
 
 

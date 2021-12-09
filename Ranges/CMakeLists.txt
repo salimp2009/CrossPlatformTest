@@ -107,7 +107,6 @@ add_library(RangesTestLib
         src/CompileTimeThings/ConstexprString.hpp
         src/TemplatesMetaProg/MetaProgramBasics.hpp
         src/TemplatesMetaProg/MetaProgramBasics.cpp
-        src/TemplatesMetaProg/NamedTuppleImp.hpp
         src/NTTP/NamedTupple.hpp 
         src/NTTP/NamedTupple.cpp
    )
