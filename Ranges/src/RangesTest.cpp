@@ -65,4 +65,5 @@ int main()
 	AsConst_ConstEval_Test();
 	MetaProgramming_Test();
 	NamedTupple_Test();
+	NamedTupple_Test2();
 }

@@ -1,18 +1,8 @@
 #include "RangesHeaders.hpp"
 
-#include <algorithm>
-#include <any>
-#include <experimental/iterator>
-#include <iostream>
-#include <iterator>
-#include <string_view>
-#include <tuple>
-#include <type_traits>
-#include <utility>
-#include <vector>
-
-
 void NamedTupple_Test();
+void NamedTupple_Test2();
+
 
 template<typename TChar, std::size_t N>
 struct fixed_string
@@ -37,7 +27,6 @@ struct fixed_string
 		return { data, N-1 };
 	}
 
-	
 	//constexpr explicit(false) operator const auto*() const
 	//{
 	//	return data;
@@ -47,11 +36,34 @@ struct fixed_string
 template<std::size_t N>
 fixed_string(const char*)->fixed_string<char, N>;
 
-// this is to test during implementation ; will be revised afterwards
 template<fixed_string Name>
 constexpr auto operator""_t()
 {
 	return Name;
+}
+
+
+template<fixed_string Name, class TValue>
+struct arg
+{
+	static constexpr auto name = Name;
+	TValue value{};
+	
+	template<typename T>
+	[[nodiscard]] constexpr auto operator=(const T& val) const
+	{
+		return arg<Name, T>{.value = val};
+	}
+
+	// added this to get rid of some of the errors in the constexpr test but it does not help since std::any in not constexpr 
+	constexpr ~arg() = default;
+};
+
+// this is to test during implementation ; will be revised afterwards
+template<fixed_string Name>
+constexpr auto operator""_ts()
+{
+	return arg<Name, std::any>{};
 }
 
 
