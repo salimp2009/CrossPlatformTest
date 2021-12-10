@@ -36,9 +36,18 @@ void NamedTupple_Test2()
 	
 	// this fails in the original implementation
 	//constexpr auto arg1 = ("name"_ts = 42);
-	const auto arg1 = ("name"_ts = 42);
+	constexpr auto arg1 = arg<"name", int>{ 42 };
 	
 	// All of those fail 
 	static_assert("name"sv == arg1.name);
-	//static_assert(42 == arg1.value);
+	static_assert(42 == arg1.value);
+
+
+	static_assert("test2"sv == (arg<"test2", int>{42}).name);
+	static_assert(42 == (arg<"test2", int>{42}).value);
+
+	const auto ntp1 = namedtuple("x"_ts = 42, "y"_ts = 55);
+	// TODO ; this does not compile 
+	//static_assert(42 == ntp1["x"_ts]);
+
 }

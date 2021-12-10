@@ -1,6 +1,6 @@
 #include "RangesHeaders.hpp"
 #include "MetaProgramBasics.hpp"
-
+#include "MetaProgLinearSearch.hpp"
 
 
 void MetaProgramming_Test()
@@ -63,6 +63,16 @@ void MetaProgramming_Test()
 	static_assert(std::is_invocable_v<decltype(blargLamda), int&>);
 
 	static_assert(not std::is_invocable_v<decltype(blargLamda), Bar&>);
+
+}
+void MetaProgLinearSearch()
+{
+	std::puts("--MetaProgLinearSearch--");
+
+	auto prettyFuncName = std::string_view(__PRETTY_FUNCTION__);
+	std::printf("__PRETTY_FUNCTION__ = %s \n", prettyFuncName.data());
+	std::printf("__FUNCTION__		 = %s \n", __FUNCTION__);
+
 
 }
 

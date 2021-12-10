@@ -59,12 +59,48 @@ struct arg
 	constexpr ~arg() = default;
 };
 
+
+
 // this is to test during implementation ; will be revised afterwards
 template<fixed_string Name>
 constexpr auto operator""_ts()
 {
 	return arg<Name, std::any>{};
 }
+
+template<typename... Ts>
+struct namedtuple : Ts...
+{
+	// C++17 added this ; not used in the original implementation ??
+	//using Ts::operator()...;
+	constexpr explicit(true) namedtuple(Ts... ts): Ts{ts}... {}
+
+
+	template<fixed_string Name, typename TValue>
+	[[nodiscard]] constexpr decltype(auto) get(arg<Name, TValue>&& t)
+	{
+		return (t.value);
+	}
+
+
+	template<class T>
+	[[nodiscard]] constexpr auto operator[](T) ->decltype(get<T::name>(*this)) 
+	{
+		return get<T::name>(*this);
+	}
+	
+	//template<class T>
+	//[[nodiscard]] constexpr const auto operator[](T) const& ->decltype(get<T::name>(*this)) 
+	//{
+	//	return get<T::name>(*this);
+	//}
+
+};
+
+// as of C++20 this might not be needed 
+template<typename...Ts>
+namedtuple(Ts... ts)->namedtuple<Ts...>;
+
 
 
 

@@ -109,7 +109,7 @@ add_library(RangesTestLib
         src/TemplatesMetaProg/MetaProgramBasics.cpp
         src/NTTP/NamedTupple.hpp 
         src/NTTP/NamedTupple.cpp
-   )
+    "src/TemplatesMetaProg/MetaProgLinearSearch.hpp")
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 

@@ -1,6 +1,7 @@
 #include "RangesHeaders.hpp"
 
 void MetaProgramming_Test();
+void MetaProgLinearSearch();
 
 // included in C++20 as std::type_identity
 template<typename T>
