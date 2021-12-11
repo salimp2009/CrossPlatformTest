@@ -33,8 +33,8 @@ struct fixed_string
 	//}
 };
 
-template<std::size_t N>
-fixed_string(const char*)->fixed_string<char, N>;
+//template<std::size_t N>
+//fixed_string(const char*)->fixed_string<char, N>;
 
 template<fixed_string Name>
 constexpr auto operator""_t()
@@ -48,17 +48,14 @@ struct arg
 {
 	static constexpr auto name = Name;
 	TValue value{};
-	
+
 	template<typename T>
 	[[nodiscard]] constexpr auto operator=(const T& val) const
 	{
 		return arg<Name, T>{.value = val};
 	}
 
-	// added this to get rid of some of the errors in the constexpr test but it does not help since std::any in not constexpr 
-	constexpr ~arg() = default;
 };
-
 
 
 // this is to test during implementation ; will be revised afterwards
@@ -71,10 +68,7 @@ constexpr auto operator""_ts()
 template<typename... Ts>
 struct namedtuple : Ts...
 {
-	// C++17 added this ; not used in the original implementation ??
-	//using Ts::operator()...;
 	constexpr explicit(true) namedtuple(Ts... ts): Ts{ts}... {}
-
 
 	template<fixed_string Name, typename TValue>
 	[[nodiscard]] constexpr decltype(auto) get(arg<Name, TValue>&& t)
@@ -84,16 +78,16 @@ struct namedtuple : Ts...
 
 
 	template<class T>
-	[[nodiscard]] constexpr auto operator[](T) ->decltype(get<T::name>(*this)) 
+	[[nodiscard]] constexpr auto operator[](T) ->decltype(get<T::name>(*this))
 	{
 		return get<T::name>(*this);
 	}
 	
-	//template<class T>
-	//[[nodiscard]] constexpr const auto operator[](T) const& ->decltype(get<T::name>(*this)) 
-	//{
-	//	return get<T::name>(*this);
-	//}
+	template<class T>
+	[[nodiscard]] constexpr auto operator[](T) const& ->decltype(get<T::name>(*this))
+	{
+		return get<T::name>(*this);
+	}
 
 };
 

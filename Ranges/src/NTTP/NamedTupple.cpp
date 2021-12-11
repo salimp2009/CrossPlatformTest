@@ -35,7 +35,7 @@ void NamedTupple_Test2()
 	using namespace std::string_view_literals;
 	
 	// this fails in the original implementation
-	//constexpr auto arg1 = ("name"_ts = 42);
+	//constexpr auto arg0 = ("name"_ts = 42);
 	constexpr auto arg1 = arg<"name", int>{ 42 };
 	
 	// All of those fail 
@@ -49,5 +49,12 @@ void NamedTupple_Test2()
 	const auto ntp1 = namedtuple("x"_ts = 42, "y"_ts = 55);
 	// TODO ; this does not compile 
 	//static_assert(42 == ntp1["x"_ts]);
+
+	//auto val0 = std::any_cast<int>(ntp1["x"_ts]);
+	//std::printf("%i", val0);
+
+	//auto val = ntp1["x"_ts];
+
+	//std::printf("x: %i, y: %i", ntp1["x"_ts], ntp1["y"_ts]);
 
 }
