@@ -1,5 +1,7 @@
 #include "RangesHeaders.hpp"
 
+#include <experimental/iterator>
+
 void NamedTupple_Test();
 void NamedTupple_Test2();
 
@@ -58,11 +60,52 @@ struct arg
 };
 
 
+// This is copy/paste from Kris Cusiak code ; used for testing to resolve the problems with 
+// nametuple class operator[](T) does not compile; tried to test if it was std::any was the problem
+// but this one still fails :(
+struct any : std::any {
+	any() = default;
+	template <class T>
+	explicit(false) any(const T& a)
+		: std::any{ a },
+		print{ [](std::ostream& os, const std::any& a) -> std::ostream& {
+		  if constexpr (requires { os << std::any_cast<T>(a); }) {
+			os << std::any_cast<T>(a);
+		  }
+		else if constexpr (requires {
+					 std::begin(std::any_cast<T>(a));
+					 std::end(std::any_cast<T>(a));
+				   }) {
+		auto obj = std::any_cast<T>(a);
+		std::copy(std::begin(obj), std::end(obj),
+				  std::experimental::make_ostream_joiner(os, ','));
+		}
+		else {
+		os << a.type().name();
+		}
+		return os;
+		} } {}
+		
+		template <class T>
+		constexpr explicit(false) operator T() const {
+			return std::any_cast<T>(*this);
+		}
+		
+		friend std::ostream& operator<<(std::ostream& os, const any& a) {
+			return a.print(os, a);
+		}
+		
+		private:
+			std::ostream& (*print)(std::ostream&, const std::any&) {};
+};
+
+
+
 // this is to test during implementation ; will be revised afterwards
 template<fixed_string Name>
 constexpr auto operator""_ts()
 {
-	return arg<Name, std::any>{};
+	return arg<Name, any>{};
 }
 
 template<typename... Ts>
@@ -70,24 +113,24 @@ struct namedtuple : Ts...
 {
 	constexpr explicit(true) namedtuple(Ts... ts): Ts{ts}... {}
 
-	template<fixed_string Name, typename TValue>
+	template<fixed_string Name, class TValue>
 	[[nodiscard]] constexpr decltype(auto) get(arg<Name, TValue>&& t)
 	{
 		return (t.value);
 	}
 
-
 	template<class T>
 	[[nodiscard]] constexpr auto operator[](T) ->decltype(get<T::name>(*this))
 	{
+		
 		return get<T::name>(*this);
 	}
 	
-	template<class T>
-	[[nodiscard]] constexpr auto operator[](T) const& ->decltype(get<T::name>(*this))
-	{
-		return get<T::name>(*this);
-	}
+	//template<class T>
+	//[[nodiscard]] constexpr auto operator[](T) const& ->decltype(get<T::name>(*this))
+	//{
+	//	return get<T::name>(*this);
+	//}
 
 };
 

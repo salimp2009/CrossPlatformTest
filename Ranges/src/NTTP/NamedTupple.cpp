@@ -46,7 +46,9 @@ void NamedTupple_Test2()
 	static_assert("test2"sv == (arg<"test2", int>{42}).name);
 	static_assert(42 == (arg<"test2", int>{42}).value);
 
-	const auto ntp1 = namedtuple("x"_ts = 42, "y"_ts = 55);
+	[[maybe_unused]] const auto ntp1 = namedtuple<arg<"x", int>, arg<"y", int>>({ .value = 42 }, {.value=55});
+	const auto ntp2 = namedtuple("z"_ts = 45, "y1"_ts = 155, ntp1);
+	
 	// TODO ; this does not compile 
 	//static_assert(42 == ntp1["x"_ts]);
 
