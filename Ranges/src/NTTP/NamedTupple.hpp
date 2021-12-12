@@ -12,17 +12,17 @@ struct fixed_string
 	TChar data[N]{};
 	static constexpr std::size_t size = N;
 
-	constexpr explicit(false) fixed_string(const TChar(&str)[N])
-	{
-		std::copy_n(str, N, data);
-	}
-
-	// Used in the original example ; the above method is nicer to me :)
-	// if you use both then compiler error for ambigiues overloading
-	//constexpr explicit(false) fixed_string(const TChar* str)
+	//constexpr explicit(false) fixed_string(const TChar(&str)[N])
 	//{
 	//	std::copy_n(str, N, data);
 	//}
+
+	// Used in the original example ; the above method is nicer to me :)
+	// if you use both then compiler error for ambigiues overloading
+	constexpr explicit(false) fixed_string(const TChar* str)
+	{
+		std::copy_n(str, N, data);
+	}
 
 	constexpr explicit(false) operator std:: string_view() const
 	{
@@ -35,8 +35,8 @@ struct fixed_string
 	//}
 };
 
-//template<std::size_t N>
-//fixed_string(const char*)->fixed_string<char, N>;
+template<std::size_t N>
+fixed_string(const char(&)[N])->fixed_string<char, N>;
 
 template<fixed_string Name>
 constexpr auto operator""_t()
@@ -52,7 +52,7 @@ struct arg
 	TValue value{};
 
 	template<typename T>
-	[[nodiscard]] constexpr auto operator=(const T& val) const
+	constexpr auto operator=(const T& val)
 	{
 		return arg<Name, T>{.value = val};
 	}
@@ -68,22 +68,26 @@ struct any : std::any {
 	template <class T>
 	explicit(false) any(const T& a)
 		: std::any{ a },
-		print{ [](std::ostream& os, const std::any& a) -> std::ostream& {
-		  if constexpr (requires { os << std::any_cast<T>(a); }) {
-			os << std::any_cast<T>(a);
-		  }
-		else if constexpr (requires {
-					 std::begin(std::any_cast<T>(a));
-					 std::end(std::any_cast<T>(a));
-				   }) {
-		auto obj = std::any_cast<T>(a);
-		std::copy(std::begin(obj), std::end(obj),
-				  std::experimental::make_ostream_joiner(os, ','));
-		}
-		else {
-		os << a.type().name();
-		}
-		return os;
+		print{ [](std::ostream& os, const std::any& a) -> std::ostream& 
+		{
+			if constexpr (requires { os << std::any_cast<T>(a); }) 
+			{
+				os << std::any_cast<T>(a);
+			}
+			else if constexpr (requires 
+					{
+							 std::begin(std::any_cast<T>(a));
+							 std::end(std::any_cast<T>(a));
+					}) 
+			{
+				auto obj = std::any_cast<T>(a);
+				std::copy(std::begin(obj), std::end(obj), std::experimental::make_ostream_joiner(os, ','));
+			}
+			else 
+			{
+				os << a.type().name();
+			}
+			return os;
 		} } {}
 		
 		template <class T>
@@ -98,7 +102,6 @@ struct any : std::any {
 		private:
 			std::ostream& (*print)(std::ostream&, const std::any&) {};
 };
-
 
 
 // this is to test during implementation ; will be revised afterwards
@@ -119,6 +122,7 @@ struct namedtuple : Ts...
 		return (t.value);
 	}
 
+	// TODO: Find out why these dont work as presented 
 	template<class T>
 	[[nodiscard]] constexpr auto operator[](T) ->decltype(get<T::name>(*this))
 	{
@@ -126,6 +130,7 @@ struct namedtuple : Ts...
 		return get<T::name>(*this);
 	}
 	
+	// TODO: Find out why these dont work as presented
 	//template<class T>
 	//[[nodiscard]] constexpr auto operator[](T) const& ->decltype(get<T::name>(*this))
 	//{

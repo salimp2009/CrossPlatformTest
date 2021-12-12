@@ -35,7 +35,11 @@ void NamedTupple_Test2()
 	using namespace std::string_view_literals;
 	
 	// this fails in the original implementation
-	//constexpr auto arg0 = ("name"_ts = 42);
+	const auto arg0 = ("name"_ts = 42);
+	auto val = arg0.value;
+
+	std::printf("%i %s \n", val, arg0.name.data);
+
 	constexpr auto arg1 = arg<"name", int>{ 42 };
 	
 	// All of those fail 
@@ -46,8 +50,8 @@ void NamedTupple_Test2()
 	static_assert("test2"sv == (arg<"test2", int>{42}).name);
 	static_assert(42 == (arg<"test2", int>{42}).value);
 
-	[[maybe_unused]] const auto ntp1 = namedtuple<arg<"x", int>, arg<"y", int>>({ .value = 42 }, {.value=55});
-	const auto ntp2 = namedtuple("z"_ts = 45, "y1"_ts = 155, ntp1);
+	[[maybe_unused]] constexpr auto ntp1 = namedtuple<arg<"x", int>, arg<"y", int>>({ .value = 42 }, {.value=55});
+	[[maybe_unused]] const auto ntp2 = namedtuple("z"_ts = 45, "y1"_ts = 155, ntp1);
 	
 	// TODO ; this does not compile 
 	//static_assert(42 == ntp1["x"_ts]);
@@ -55,8 +59,12 @@ void NamedTupple_Test2()
 	//auto val0 = std::any_cast<int>(ntp1["x"_ts]);
 	//std::printf("%i", val0);
 
-	//auto val = ntp1["x"_ts];
-
+	//auto val5 = ntp1["x"_ts];
 	//std::printf("x: %i, y: %i", ntp1["x"_ts], ntp1["y"_ts]);
+
+	static_assert(not [](auto t) 
+		{ 
+			return requires{ t["x"_ts]; }; 
+		}(ntp1));
 
 }
