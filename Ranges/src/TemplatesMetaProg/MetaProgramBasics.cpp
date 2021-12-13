@@ -1,7 +1,7 @@
 #include "RangesHeaders.hpp"
 #include "MetaProgramBasics.hpp"
 #include "MetaProgLinearSearch.hpp"
-
+#include "MetaProgInHeritance.hpp"
 
 void MetaProgramming_Test()
 {
@@ -65,6 +65,9 @@ void MetaProgramming_Test()
 	static_assert(not std::is_invocable_v<decltype(blargLamda), Bar&>);
 
 }
+
+std::string str1 = "my function";
+
 void MetaProgLinearSearch()
 {
 	std::puts("--MetaProgLinearSearch--");
@@ -73,6 +76,27 @@ void MetaProgLinearSearch()
 	std::printf("__PRETTY_FUNCTION__ = %s \n", prettyFuncName.data());
 	std::printf("__FUNCTION__		 = %s \n", __FUNCTION__);
 
+	auto fn1 = []() { return std::string_view{ str1 }; };
+
+	PackImpl< void(*)(int), int(*)(int), void(*)(), std::string_view(*)(), decltype(fn1) > mypack{};
+	// this does not give correct result ; need to check but i did not quite like the implementation :)
+	auto result = mypack.contains([]() { return std::string_view{ str1 }; });
+	printf("IsInPack CompileTimeCheck thru Linear Search: %s \n", (result ? "true" : "false"));
 
 }
 
+void MetaProgInheritanceCheck()
+{
+	std::puts("--MetaProgInheritanceCheck--");
+	
+	constexpr auto result = inherit_checkPtr_IsInPack<int, char, float, double, int>{};
+	static_assert(result);
+	printf("IsInPack CompileTimeCheck thru Inheritance: %s \n", (result ? "true" : "false"));
+
+	constexpr auto result2 = inherit_checkPtr_IsInPack<int, char, float, double, bool>{};
+	static_assert(not result2);
+	printf("IsInPack CompileTimeCheck thru Inheritance: %s \n", (result2 ? "true" : "false"));
+
+	
+
+}

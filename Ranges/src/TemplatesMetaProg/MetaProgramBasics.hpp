@@ -2,6 +2,7 @@
 
 void MetaProgramming_Test();
 void MetaProgLinearSearch();
+void MetaProgInheritanceCheck();
 
 // included in C++20 as std::type_identity
 template<typename T>

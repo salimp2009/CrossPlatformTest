@@ -16,11 +16,11 @@ void NamedTupple_Test()
 	//static_assert(not std::is_same_v<decltype("x"_t), decltype("y"_t)>);
 	//static_assert(not std::is_same_v<decltype(fixed_string("x")), decltype(fixed_string("y"))>);
 
-	auto mytuple = "name"_t;
+	constexpr auto mytuple = "name"_t;
 	std::printf("%s, %lu \n", mytuple.data, mytuple.size);
 	std::printf("%s, %lu \n", ("Didem"_t).data, ("Didem"_t).size);
 
-	auto fixedStrng1 = fixed_string("name");
+	constexpr auto fixedStrng1 = fixed_string("name");
 
 	std::string_view val = fixedStrng1;
 

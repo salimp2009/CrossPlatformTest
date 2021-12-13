@@ -67,4 +67,5 @@ int main()
 	NamedTupple_Test();
 	NamedTupple_Test2();
 	MetaProgLinearSearch();
+	MetaProgInheritanceCheck();
 }
