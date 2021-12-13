@@ -2,6 +2,7 @@
 #include "MetaProgramBasics.hpp"
 #include "MetaProgLinearSearch.hpp"
 #include "MetaProgInHeritance.hpp"
+#include "DecltypeAutoUses.hpp"
 
 void MetaProgramming_Test()
 {
@@ -97,6 +98,24 @@ void MetaProgInheritanceCheck()
 	static_assert(not result2);
 	printf("IsInPack CompileTimeCheck thru Inheritance: %s \n", (result2 ? "true" : "false"));
 
-	
+}
+
+
+void DecltypeAutoUseCases()
+{
+	std::puts("--DecltypeAutoUseCases--");
+
+	std::string str{ "decltype is tricky" };
+
+	auto&& str2 = std::move(str);
+
+	static_assert(not std::is_same_v<decltype(str2), std::string>);		// expected false
+	static_assert(std::is_same_v<decltype(str2), std::string&&>);		// expected true
+	static_assert(not std::is_same_v<decltype(str2), std::string&>);	// expected false
+
+	static_assert(std::is_reference_v<decltype(str2)>);					// true
+	static_assert(not std::is_lvalue_reference_v<decltype(str2)>);		// false
+	static_assert(std::is_rvalue_reference_v<decltype(str2)>);			// true
+
 
 }

@@ -68,4 +68,5 @@ int main()
 	NamedTupple_Test2();
 	MetaProgLinearSearch();
 	MetaProgInheritanceCheck();
+	DecltypeAutoUseCases();
 }
