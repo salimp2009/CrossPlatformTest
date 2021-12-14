@@ -69,4 +69,5 @@ int main()
 	MetaProgLinearSearch();
 	MetaProgInheritanceCheck();
 	DecltypeAutoUseCases();
+	DecltypeAutoUseCases_Expression();
 }

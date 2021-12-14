@@ -117,5 +117,42 @@ void DecltypeAutoUseCases()
 	static_assert(not std::is_lvalue_reference_v<decltype(str2)>);		// false
 	static_assert(std::is_rvalue_reference_v<decltype(str2)>);			// true
 
+	static_assert(std::is_same_v<std::remove_reference_t<decltype(str2)>, std::string>);
+}
+
+void DecltypeAutoUseCases_Expression()
+{
+	std::puts("--DecltypeAutoUseCases_Expression--");
+
+/* 
+	decltype((expr)) results in;
+	For a prvalue it just yields its value type: type
+	For an lvalue it yields its type as an lvalue reference: type&
+	For an xvalue it yields its type as an rvalue reference: type&&
+*/
+
+	std::string str{ "decltype is tricky" };
+
+	auto&& str2 = std::move(str);
+	auto&& str3 = std::string{ "tricky decltype" };
+	
+	static_assert(std::is_same_v<decltype(str2), std::string&&>);		// expected true
+	static_assert(std::is_same_v<decltype(str3), std::string&&>);		// expected true
+
+	// ((name)) converts a variable/name into an expression therefore treated as an lvalue;
+	static_assert(not std::is_same_v<decltype((str2)), std::string>);		// expected false
+	static_assert(not std::is_same_v<decltype((str2)), std::string&&>);		// expected false
+	static_assert(std::is_same_v<decltype((str2)), std::string&>);			// expectedtrue
+
+	static_assert(std::is_same_v<decltype(str3 + str3), std::string>);		// str3+str3 is a prvalue therefore it return std::string
+	static_assert(std::is_same_v<decltype(str3[0]), char&>);				// str[0] return reference to char in the index given so char& because operator[] yields & 
+
+	static_assert(std::is_reference_v<decltype((str2))>);				// true
+	static_assert(std::is_lvalue_reference_v<decltype((str2))>);		// true
+	static_assert(not std::is_rvalue_reference_v<decltype((str2))>);	// false
+
 
 }
+
+
+

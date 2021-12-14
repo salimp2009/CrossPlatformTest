@@ -4,6 +4,7 @@ void MetaProgramming_Test();
 void MetaProgLinearSearch();
 void MetaProgInheritanceCheck();
 void DecltypeAutoUseCases();
+void DecltypeAutoUseCases_Expression();
 
 // included in C++20 as std::type_identity
 template<typename T>

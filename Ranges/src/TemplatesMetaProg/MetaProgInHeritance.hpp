@@ -4,6 +4,7 @@
 	// Already defined MetaProgramBasics.hpp
 	//template<typename T> struct TypeIdentity {};
 
+// Check thru Pointers
 	template<typename T>
 	static constexpr std::true_type check(const TypeIdentity<T>*);
 
@@ -16,5 +17,7 @@
 	template<typename Target, typename...Ts>
 	using inherit_checkPtr_IsInPack = decltype(check<Target>(static_cast<IsInPackImpl<Ts...>*>(nullptr)));
 
+// Check 
 
+	
 
