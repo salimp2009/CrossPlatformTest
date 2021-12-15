@@ -98,6 +98,9 @@ void MetaProgInheritanceCheck()
 	static_assert(not result2);
 	printf("IsInPack CompileTimeCheck thru Inheritance: %s \n", (result2 ? "true" : "false"));
 
+	constexpr auto result3 = inherit_Instance_IsInPack<int, char, float, double, int>{};
+	static_assert(result3);
+
 }
 
 
