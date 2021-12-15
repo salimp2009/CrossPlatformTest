@@ -101,6 +101,12 @@ void MetaProgInheritanceCheck()
 	constexpr auto result3 = inherit_Instance_IsInPack<int, char, float, double, int>{};
 	static_assert(result3);
 
+	constexpr auto result4 = inherit_StructInst_IsInPack<int, char, float, double, std::string, int>{};
+	static_assert(result4);
+
+	// TODO : check to get the correct result !
+	constexpr auto result5 = inherit_IsBaseOf<int, char, float, double, int>;
+	static_assert(not result5);
 }
 
 
