@@ -70,4 +70,5 @@ int main()
 	MetaProgInheritanceCheck();
 	DecltypeAutoUseCases();
 	DecltypeAutoUseCases_Expression();
+	MetaProgSortTyes_Align();
 }

@@ -5,6 +5,7 @@ void MetaProgLinearSearch();
 void MetaProgInheritanceCheck();
 void DecltypeAutoUseCases();
 void DecltypeAutoUseCases_Expression();
+void MetaProgSortTyes_Align();
 
 // included in C++20 as std::type_identity
 template<typename T>

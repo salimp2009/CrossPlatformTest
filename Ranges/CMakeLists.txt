@@ -111,7 +111,9 @@ add_library(RangesTestLib
         src/NTTP/NamedTupple.cpp
         src/TemplatesMetaProg/MetaProgLinearSearch.hpp 
         src/TemplatesMetaProg/MetaProgInHeritance.hpp
- "src/TemplatesMetaProg/DecltypeAutoUses.hpp")
+        src/TemplatesMetaProg/DecltypeAutoUses.hpp 
+        src/TemplatesMetaProg/MetaProgramSortTypes.hpp
+ )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 

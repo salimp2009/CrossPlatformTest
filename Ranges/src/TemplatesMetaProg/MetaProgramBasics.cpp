@@ -3,6 +3,7 @@
 #include "MetaProgLinearSearch.hpp"
 #include "MetaProgInHeritance.hpp"
 #include "DecltypeAutoUses.hpp"
+#include "MetaProgramSortTypes.hpp"
 
 void MetaProgramming_Test()
 {
@@ -160,6 +161,12 @@ void DecltypeAutoUseCases_Expression()
 	static_assert(std::is_lvalue_reference_v<decltype((str2))>);		// true
 	static_assert(not std::is_rvalue_reference_v<decltype((str2))>);	// false
 
+
+}
+
+void MetaProgSortTyes_Align()
+{
+	std::puts("--MetaProgSortTyes_Align--");
 
 }
 
