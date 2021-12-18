@@ -18,7 +18,8 @@ class SortTypes<Orderable, List<Ts...>>
 			using Ord = std::common_type_t<decltype(Orderable<Ts>::value)...>;
 			struct Pair { Ord ord; std::size_t ndx; };
 			Pair arr[] = { {Orderable<Ts>::value, Is}... };
-			std::sort(arr.begin(), arr.end(), [](auto x, auto y) { return x.ord < y.ord; });
+			//this is valid since C++20
+			std::sort(arr.begin(), arr.end());
 			return std::array<std::size_t, sizeof...(Ts)>{arr[Is].ndx...};
 		}();
 		// Original implementation in presentation; TypeList is a list of types; 
@@ -27,11 +28,16 @@ class SortTypes<Orderable, List<Ts...>>
 		using type = List<std::tuple_element_t<indexes[Is], std::tuple<Ts...>>...>;
 	};
 public:
-	using type = typename Impl < std::make_index_sequence < sizeof...(Ts)>> ::type;
+	using type = typename Impl<std::make_index_sequence<sizeof...(Ts)>>::type;
 };
 
 template<typename T>
 using Orderable = std::integral_constant<std::size_t, alignof(T)>;
 
 // This causes compile error ; somethng wron in the implementation ?????
-// using Sorted = typename SortTypes<Orderable, std::tuple<int, double, unsigned, char>>::type;
+//using Sorted = typename SortTypes<Orderable, std::tuple<int, double, unsigned, char>>::type;
+
+//static_assert(std::is_same<std::tuple<int, double, unsigned, char>, Sorted>{});
+
+
+

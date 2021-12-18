@@ -10,6 +10,7 @@
 #include <type_traits>
 #include <algorithm>
 #include <optional>
+#include <compare>
 #include <span>
 #include <variant>
 #include <any>
@@ -23,5 +24,6 @@
 #include <coroutine>
 #include <deque>
 #include <list>
+
 
 

@@ -150,9 +150,10 @@ void DecltypeAutoUseCases_Expression()
 	static_assert(std::is_same_v<decltype(str3), std::string&&>);		// expected true
 
 	// ((name)) converts a variable/name into an expression therefore treated as an lvalue;
-	static_assert(not std::is_same_v<decltype((str2)), std::string>);		// expected false
-	static_assert(not std::is_same_v<decltype((str2)), std::string&&>);		// expected false
-	static_assert(std::is_same_v<decltype((str2)), std::string&>);			// expectedtrue
+	static_assert(not std::is_same_v<decltype((str2)), std::string>);			// expected false
+	static_assert(not std::is_same_v<decltype((str2)), std::string&&>);			// expected false
+	static_assert(std::is_same_v<decltype((str2)), std::string&>);				// expectedtrue
+	static_assert(std::is_same_v<decltype((std::move(str2))), std::string&&>);	// expectedtrue
 
 	static_assert(std::is_same_v<decltype(str3 + str3), std::string>);		// str3+str3 is a prvalue therefore it return std::string
 	static_assert(std::is_same_v<decltype(str3[0]), char&>);				// str[0] return reference to char in the index given so char& because operator[] yields & 
@@ -160,13 +161,33 @@ void DecltypeAutoUseCases_Expression()
 	static_assert(std::is_reference_v<decltype((str2))>);				// true
 	static_assert(std::is_lvalue_reference_v<decltype((str2))>);		// true
 	static_assert(not std::is_rvalue_reference_v<decltype((str2))>);	// false
-
-
 }
 
 void MetaProgSortTyes_Align()
 {
 	std::puts("--MetaProgSortTyes_Align--");
+
+}
+
+void DecltypeAuto_AsReturnType()
+{
+	std::puts("--DecltypeAuto_AsReturnType--");
+	std::string s = "hey auto";
+	std::string& r = s;
+	const std::string&  cr = s;
+
+	decltype(auto) da1	= s;		// da1; string
+	decltype(auto) da2	= r;		// da2; string&
+	auto da2_r			= r;		// da2_r; string; because auto decays referenceness	
+	auto da2_cr			= cr;		// da2_cr; string 
+	decltype(auto) da3	= r;		// string&
+	decltype(auto) da4	= cr;		// const string&
+
+	decltype(auto) da5 = std::move(s);		// string&&
+	decltype(auto) da6 = s + s;				// string
+	decltype(auto) da7 = s[0];				// char&; operator[] returns T&
+	decltype(auto) da8 = (s);				// string&
+	decltype(auto) da9 = (std::move(s));	// string&&
 
 }
 

@@ -9,6 +9,7 @@
 #include "CompileTimeThings/ConstEvalUseCases.hpp"
 #include "TemplatesMetaProg/MetaProgramBasics.hpp"
 #include "NTTP/NamedTupple.hpp"
+#include "SpaceShipOperator/SpaceShipOperTests.hpp"
 
 int main()
 {
@@ -71,4 +72,6 @@ int main()
 	DecltypeAutoUseCases();
 	DecltypeAutoUseCases_Expression();
 	MetaProgSortTyes_Align();
+	DecltypeAuto_AsReturnType();
+	SpaceShipOper_Test1();
 }

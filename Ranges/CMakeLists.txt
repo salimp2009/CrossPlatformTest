@@ -113,7 +113,9 @@ add_library(RangesTestLib
         src/TemplatesMetaProg/MetaProgInHeritance.hpp
         src/TemplatesMetaProg/DecltypeAutoUses.hpp 
         src/TemplatesMetaProg/MetaProgramSortTypes.hpp
- )
+        src/SpaceShipOperator/SpaceShipOperTests.hpp 
+        src/SpaceShipOperator/SpaceShipOperTests.cpp
+)
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 

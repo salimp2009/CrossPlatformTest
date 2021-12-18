@@ -62,6 +62,7 @@ inline void RangesViews_Filter()
 	auto filterTransform = numbers | std::views::filter([](auto number) { return number % 2!= 0; })
 		
 						  | std::views::transform([](auto elem) {return elem * 2; });
+	//
 
 	for (const auto& number : filterTransform)
 	{
