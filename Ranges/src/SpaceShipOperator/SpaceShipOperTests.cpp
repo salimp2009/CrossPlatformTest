@@ -10,6 +10,7 @@ void SpaceShipOper_Test1()
 	static_assert(not (compA == compB));
 	static_assert(compA <= compB);
 	static_assert(not (compA > compB));
+	static_assert(((compA <=> compB) == std::strong_ordering::less));
 }
 
 void ComparisionTypes_Ordering()
@@ -34,5 +35,10 @@ void ComparisionTypes_Ordering()
 	if (x <=> y == std::partial_ordering::equivalent) 
 	{ };
 
-	
+}
+
+void CustomSpaceShip_Comparisions()
+{
+	std::puts("--CustomSpaceShip_Comparisions--");
+
 }

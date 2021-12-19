@@ -30,14 +30,14 @@ int main()
 	//RangesSentinels_EndValue();
 	//Ranges_BeginCount();
 	//Ranges_Projections();
-	RangesSort_Strings();
-	RangesAdaptors_all();
-	Ranges_LazyEval();
-	RangesViews_WriteAccess();
-	Ranges_BorrowedIterator();
-	Ranges_ShallowConstantness();
-	Ranges_MakeRangeConst();
-	Ranges_GenericMaxValue();
+	//RangesSort_Strings();
+	//RangesAdaptors_all();
+	//Ranges_LazyEval();
+	//RangesViews_WriteAccess();
+	//Ranges_BorrowedIterator();
+	//Ranges_ShallowConstantness();
+	//Ranges_MakeRangeConst();
+	//Ranges_GenericMaxValue();
 	RangesView_Components();
 	RangesView_Counted();
 	RangesView_CommonAdaptor();
@@ -49,14 +49,14 @@ int main()
 	Ranges_CommonIterator();
 	NTTP_floatingPoints();
 	
-	CompileTimevsRunTime();
-	SetPointsCompileTime();
+	//CompileTimevsRunTime();
+	//SetPointsCompileTime();
 	//ThrowinConstExprFunction();
 #endif
 #if defined (__GNUG__)  || !defined _MSC_VER && defined(__clang__)
 	// MC_VER has a bug fixed VS2022 toolset
-	NTTP_FixedString();
-	ByteSwap_CompileRunTime();
+	//NTTP_FixedString();
+	//ByteSwap_CompileRunTime();
 
 	// gives non constexpression but it is constexpr ; bug fixed in VS2022
 	CustomFormatter_WithConstEval();
@@ -74,4 +74,6 @@ int main()
 	MetaProgSortTyes_Align();
 	DecltypeAuto_AsReturnType();
 	SpaceShipOper_Test1();
+	CustomSpaceShip_Comparisions();
+	ComparisionTypes_Ordering();
 }
