@@ -43,3 +43,39 @@ public:
 	}
 };
 
+
+class Person2
+{
+private:
+	std::string Name{};
+	double ID{};
+public:
+	//if auto is used as the return type of then it wont compile since one returns partial the other partial
+	// if there is a weaker return type chose the return type as the weakest since strong ordering covers all 
+	std::partial_ordering operator<=>(const Person2& other) const
+	{
+		auto cmp1 = Name <=> other.Name;
+		if (cmp1 != 0) { return cmp1;}   // returns strong_ordering
+		return ID <=> other.ID;			 // returns weak_ordering ; 
+	}
+};
+
+class Person3
+{
+private:
+	std::string Name{};
+	double ID{};
+public:
+	//if auto is used as the return type of then it wont compile since one returns partial the other partial
+	// if there is a weaker return type chose the return type as the weakest since strong ordering covers all 
+	auto operator<=>(const Person3& other) const ->std::common_comparison_category_t<decltype(Name <=> other.Name), decltype(ID <=> other.ID)>
+	{
+		auto cmp1 = Name <=> other.Name;
+		if (cmp1 != 0) { return cmp1; }   // returns strong_ordering
+		return ID <=> other.ID;			 // returns weak_ordering ; 
+	}
+};
+
+
+
+
