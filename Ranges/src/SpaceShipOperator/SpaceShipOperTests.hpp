@@ -76,6 +76,16 @@ public:
 	}
 };
 
+struct Coord
+{
+	double x{};
+	double y{};
+	double z{};
+	constexpr auto operator<=>(const Coord& other) const = default;
+};
+
+
+
 
 
 

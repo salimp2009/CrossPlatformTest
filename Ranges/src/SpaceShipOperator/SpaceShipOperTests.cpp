@@ -40,5 +40,21 @@ void ComparisionTypes_Ordering()
 void CustomSpaceShip_Comparisions()
 {
 	std::puts("--CustomSpaceShip_Comparisions--");
+	std::vector<Coord> points = { 
+		{.x = 20.4, .y = 5.45, .z = -15.25}, 
+		{.x = 45.4, .y = 155.45, .z = 15.25}, 
+		{.x = 24.4, .y = 145.45, .z = 35.25},
+		{.x = 16.4, .y = 25.45, .z = 25.25}
+	};
+
+	std::ranges::sort(points/*, {}, &Coord::x*/);
+
+	for (auto& elem : points)
+	{
+		std::printf("x: %f, y: %f, z: %f \n", elem.x, elem.y, elem.z);
+	}
+
+	std::puts("");
+
 
 }
