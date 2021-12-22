@@ -56,5 +56,12 @@ void CustomSpaceShip_Comparisions()
 
 	std::puts("");
 
+}
 
+void SpaceShipDefaulted_Inheritance()
+{
+	std::puts("--SpaceShipDefaulted_Inheritance--");
+	ADerived ad1;
+	ADerived ad2;
+	ad1 > ad2 ;
 }

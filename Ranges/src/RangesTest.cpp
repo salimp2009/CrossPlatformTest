@@ -76,4 +76,5 @@ int main()
 	SpaceShipOper_Test1();
 	CustomSpaceShip_Comparisions();
 	ComparisionTypes_Ordering();
+	SpaceShipDefaulted_Inheritance();
 }
