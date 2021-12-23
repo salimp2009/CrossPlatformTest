@@ -87,7 +87,7 @@ struct Coord
 
 struct ABase
 {
-	bool operator==(const ABase&) const { std::puts("Equal");  return true; }
+	bool operator==(const ABase&) const { std::puts("Equal");  return false; }
 	bool operator<(const ABase&) const { std::puts("Less"); return true; }
 };
 
@@ -96,6 +96,21 @@ struct ADerived : public ABase
 	// compiler calls base class == operator if true it is done if not calls < base operator
 	// auto cannot be used since the compiler cannot deduce the type
 	 std::strong_ordering operator<=>(const ADerived&) const = default;
+};
+
+struct ADerived2 : public ABase
+{
+	// compiler calls base class == operator if true it is done if not calls < base operator
+	// auto cannot be used since the compiler cannot deduce the type
+	std::partial_ordering operator<=>(const ADerived2&) const = default;
+};
+
+// Will not compile since auto is used base class cannot deduce the ordering; see cpp file for the test case !!
+struct ADerived3 : public ABase
+{
+	// compiler calls base class == operator if true it is done if not calls < base operator
+	// auto cannot be used since the compiler cannot deduce the type
+	auto operator<=>(const ADerived3&) const = default;
 };
 
 

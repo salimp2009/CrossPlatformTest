@@ -64,4 +64,14 @@ void SpaceShipDefaulted_Inheritance()
 	ADerived ad1;
 	ADerived ad2;
 	ad1 > ad2 ;
+
+	ADerived2 dd1;
+	ADerived2 dd2;
+	dd1 < dd2;
+
+	ADerived3 d3d1;
+	ADerived3 d3d2;
+	// Will not compile since auto is used base class cannot deduce the ordering
+	//d3d1 < d3d2;
+
 }
