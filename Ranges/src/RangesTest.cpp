@@ -77,4 +77,6 @@ int main()
 	CustomSpaceShip_Comparisions();
 	ComparisionTypes_Ordering();
 	SpaceShipDefaulted_Inheritance();
+	SpaceShipBug_ImplicitConversion();
+
 }

@@ -5,6 +5,7 @@ void SpaceShipOper_Test1();
 void CustomSpaceShip_Comparisions();
 void ComparisionTypes_Ordering();
 void SpaceShipDefaulted_Inheritance();
+void SpaceShipBug_ImplicitConversion();
 
 class CompValue
 {
@@ -112,5 +113,25 @@ struct ADerived3 : public ABase
 	// auto cannot be used since the compiler cannot deduce the type
 	auto operator<=>(const ADerived3&) const = default;
 };
+
+class MyTypee
+{
+private:
+	int value;
+public:
+	// implicit constructor
+	 MyTypee(int i):value{i} {}
+
+	bool operator==(const MyTypee& other) const { return value == other.value; }
+
+};
+
+
+
+
+
+
+
+
 
 
