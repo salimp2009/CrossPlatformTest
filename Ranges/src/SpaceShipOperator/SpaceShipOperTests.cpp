@@ -81,11 +81,21 @@ void SpaceShipDefaulted_Inheritance()
 // NOTE : this is made global to be able to test the case of bug in operator<=> that works before C++20
 // this cause compiler warnings in C++20; ok in C++17
 // Compiler warning : 
-bool operator==(int i, const MyTypee& other) { return other == i; }
+//bool operator==(int i, const MyTypee& other) { return other == i; }
 
 void SpaceShipBug_ImplicitConversion()
 {
 	std::puts("--SpaceShipBug_ImplicitConversion--");
+
+	constexpr MyTypee x = 42;
+	if (0 == x)
+	{
+		std::printf("there is no mytypee here :)");
+	}
+	else
+	{
+		std::printf("MyTypee value : %i", x.value);
+	}
 
 }
 

@@ -10,6 +10,7 @@
 #include "TemplatesMetaProg/MetaProgramBasics.hpp"
 #include "NTTP/NamedTupple.hpp"
 #include "SpaceShipOperator/SpaceShipOperTests.hpp"
+#include "GenericFunctionsCpp20/GenericFunctions.hpp"
 
 int main()
 {

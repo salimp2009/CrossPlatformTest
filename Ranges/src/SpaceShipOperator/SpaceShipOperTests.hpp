@@ -116,13 +116,14 @@ struct ADerived3 : public ABase
 
 class MyTypee
 {
-private:
+public:
 	int value;
 public:
 	// implicit constructor
-	 MyTypee(int i):value{i} {}
+	 constexpr MyTypee(int i):value{i} {}
 
-	bool operator==(const MyTypee& other) const { return value == other.value; }
+	//bool operator==(const MyTypee& other) const { return value == other.value; }
+	constexpr friend bool operator==(const MyTypee& rhs, const MyTypee& lhs) { return rhs.value == lhs.value; }
 
 };
 

@@ -115,7 +115,10 @@ add_library(RangesTestLib
         src/TemplatesMetaProg/MetaProgramSortTypes.hpp
         src/SpaceShipOperator/SpaceShipOperTests.hpp 
         src/SpaceShipOperator/SpaceShipOperTests.cpp
-)
+        src/GenericFunctionsCpp20/GenericFunctions.hpp 
+        src/GenericFunctionsCpp20/GenericFunctions.cpp
+ 
+ )
 
 target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
