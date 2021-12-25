@@ -19,3 +19,22 @@ void ConceptAuto_inFunctionParams()
 	// will not compile because although auto is used for function paramter type we constrained to except int only !!
 	//printColl(arr3);
 }
+
+void Templates_inLambdas()
+{
+	std::puts("--Templates_inLambdas--");
+
+	std::variant<int, std::string> var1{ "Salim" };
+	std::visit([]<typename T>(const T& val) 
+	{
+		if constexpr (std::is_same_v<T, std::string>)
+		{
+			std::printf("%s \n", val.c_str());
+		}
+		else
+		{
+			std::printf("%i \n", val);
+		}
+
+	}, var1);
+}

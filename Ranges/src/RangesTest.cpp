@@ -80,4 +80,5 @@ int main()
 	SpaceShipDefaulted_Inheritance();
 	SpaceShipBug_ImplicitConversion();
 	ConceptAuto_inFunctionParams();
+	Templates_inLambdas();
 }

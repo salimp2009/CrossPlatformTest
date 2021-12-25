@@ -1,6 +1,7 @@
 #include "RangesHeaders.hpp"
 
 void ConceptAuto_inFunctionParams();
+void Templates_inLambdas();
 
 
 template<typename T>
