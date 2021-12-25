@@ -97,5 +97,6 @@ void SpaceShipBug_ImplicitConversion()
 		std::printf("MyTypee value : %i", x.value);
 	}
 
+	std::puts("");
 }
 

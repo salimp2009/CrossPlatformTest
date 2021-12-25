@@ -79,5 +79,5 @@ int main()
 	ComparisionTypes_Ordering();
 	SpaceShipDefaulted_Inheritance();
 	SpaceShipBug_ImplicitConversion();
-
+	ConceptAuto_inFunctionParams();
 }
