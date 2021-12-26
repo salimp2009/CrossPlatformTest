@@ -38,3 +38,18 @@ void Templates_inLambdas()
 
 	}, var1);
 }
+
+void TemplatesNNTP_Lambdas()
+{
+	std::puts("--TemplatesNNTP_Lambdas--");
+
+	constexpr auto primeNums = []<int Num>() {
+		std::array<int, Num> primes{};
+
+		return primes;
+	};
+
+	constexpr auto primes20 = primeNums.operator()<20>();
+	
+	static_assert(primes20.size() == 20);
+}
