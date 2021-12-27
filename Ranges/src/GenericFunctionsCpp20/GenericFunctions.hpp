@@ -20,3 +20,13 @@ void printColl(IntegerCont auto const & coll)
 	}
 	std::puts("");
 }
+
+
+template<typename T, int Nums>
+constexpr auto primeNum2 = []()
+{
+	std::array<T, Nums> primes{};
+	// TODO; primes num calcs to be implemented ; compile time....
+	
+	return primes;
+};

@@ -45,11 +45,18 @@ void TemplatesNNTP_Lambdas()
 
 	constexpr auto primeNums = []<int Num>() {
 		std::array<int, Num> primes{};
-
+		// TODO ; implement prime num calc at compile time !!
 		return primes;
 	};
 
 	constexpr auto primes20 = primeNums.operator()<20>();
 	
+	static_assert(std::is_same_v<std::remove_cvref_t<decltype(primes20)>, std::array<int, 20>>);
 	static_assert(primes20.size() == 20);
+
+	// this is the version we can implement directly in a function since it has template<> definition on the top level
+	constexpr auto primes2 = primeNum2<int, 30>();
+	static_assert(std::is_same_v<std::remove_cvref_t<decltype(primes2)>, std::array<int, 30>>);
+	static_assert(primes2.size() == 30);
+
 }
