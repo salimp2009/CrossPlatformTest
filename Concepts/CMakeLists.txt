@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.16)
 
-project ("Ranges")
+project ("Concepts")
 # Add source to this project's executable.
 
 set(CMAKE_CXX_STANDARD 20)
@@ -68,65 +68,29 @@ endif()
 #set(BUILD_SHARED_LIBS NO)
 
 #added to use precompiled headers
-add_library(CommonPCH INTERFACE)
-target_precompile_headers(CommonPCH INTERFACE 
-	[["RangesHeaders.hpp"]]
+add_library(ConceptsPCH INTERFACE)
+target_precompile_headers(ConceptsPCH INTERFACE 
+	[["ConceptsPCH.hpp"]]
 )
 
-target_include_directories(CommonPCH INTERFACE
+target_include_directories(ConceptsPCH  INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
 )
 
 
-add_library(RangesTestLib
-		src/RangesTest.cpp
-		src/RangesViewsComponents.cpp
-		src/RangesBasic.hpp
-		src/RangeUtils.hpp
-		src/Span/SpanTest.hpp 
-		src/Span/SpanUtils.hpp
-		src/CustomTakeView.hpp
-		src/RangesUseCases.hpp
-		src/RangesViewsAdaptor.hpp
-		src/RangesViewsComponents.hpp	
-        src/RangesCompileTimeSize.hpp
-        src/RangesCompileTimeSize.cpp
-        src/NTTP/NTTP.hpp 
-        src/NTTP/NTTP.cpp
-        src/NTTP/NTTPUtils.hpp
-        src/NTTP/NTTPFixedString.hpp
-        src/CompileTimeThings/CompileRunTime.hpp
-        src/CompileTimeThings/CompileRunTime.cpp
-        src/CompileTimeThings/CompileTimeByteSwap.hpp
-        src/CompileTimeThings/CompileTimeCarRacing.hpp
-        src/CompileTimeThings/ConstexprUniquePtr.hpp
-        src/Views/ViewTests.hpp 
-        src/Views/ViewTests.cpp
-        src/CompileTimeThings/ConstEvalUseCases.hpp src/CompileTimeThings/ConstEvalUseCases.cpp
-        src/CompileTimeThings/CustomFormatterTypeSafe.hpp 
-        src/CompileTimeThings/ConstexprString.hpp
-        src/TemplatesMetaProg/MetaProgramBasics.hpp
-        src/TemplatesMetaProg/MetaProgramBasics.cpp
-        src/NTTP/NamedTupple.hpp 
-        src/NTTP/NamedTupple.cpp
-        src/TemplatesMetaProg/MetaProgLinearSearch.hpp 
-        src/TemplatesMetaProg/MetaProgInHeritance.hpp
-        src/TemplatesMetaProg/DecltypeAutoUses.hpp 
-        src/TemplatesMetaProg/MetaProgramSortTypes.hpp
-        src/SpaceShipOperator/SpaceShipOperTests.hpp 
-        src/SpaceShipOperator/SpaceShipOperTests.cpp
-        src/GenericFunctionsCpp20/GenericFunctions.hpp 
-        src/GenericFunctionsCpp20/GenericFunctions.cpp
- 
- )
+add_library(ConceptsTestLib
+		src/ConceptsTest.cpp
+        src/ConceptsRequires/ConceptRequires.hpp 
+        src/ConceptsRequires/ConceptsRequires.cpp
+  )
 
-target_include_directories(RangesTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+target_include_directories(ConceptsTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
-target_link_libraries(RangesTestLib PRIVATE CommonPCH)
+target_link_libraries(ConceptsTestLib PRIVATE ConceptsPCH)
 
-add_executable (RangeTest src/RangesTest.cpp) 
+add_executable (ConceptsTest src/ConceptsTest.cpp) 
 # if Ranges is used in another project as a library then make it INTERFACE or PUBLIC
 # if only Ranges needs the specified list then use PRIVATE
-target_link_libraries(RangeTest PRIVATE project_options RangesTestLib)
+target_link_libraries(ConceptsTest PRIVATE project_options ConceptsTestLib)
 
 
