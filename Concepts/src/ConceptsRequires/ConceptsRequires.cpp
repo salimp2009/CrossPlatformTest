@@ -14,5 +14,8 @@ void ConceptsRequirest_Test()
 	// Will not compile since the concept has a requirement not to have raw pointers !!
 	//maxxValue(&val1, &val2);
 
+	constexpr auto result2 = minnVal(val1, val2);
+	std::printf("result2 minnVal: %i\n", result2);
+	minnVal(&val1, &val2);
 
 }
