@@ -30,3 +30,4 @@ constexpr auto primeNum2 = []()
 	
 	return primes;
 };
+

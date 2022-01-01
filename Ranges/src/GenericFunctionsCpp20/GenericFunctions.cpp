@@ -18,6 +18,7 @@ void ConceptAuto_inFunctionParams()
 	std::array arr3 = { 'C', 'C', 'F'};
 	// will not compile because although auto is used for function paramter type we constrained to except int only !!
 	//printColl(arr3);
+
 }
 
 void Templates_inLambdas()

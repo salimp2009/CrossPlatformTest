@@ -21,13 +21,19 @@ void ConceptsRequirest_Test()
 
 	const int* p1 = &val1;
 	const int* p2 = &val2;
+	
 	std::printf("minVal2: %i \n", minnVal2(p1, p2));
 
-	// gives a compiler error if the minnVal3() is defined in a seperate header because cannot deduce the types ??
-	// if minnVal3() is defined in the same cpp file it is OK
-	//auto result3 = minnVal3(p1, p2);
-	//std::printf("minVal3: %i", result3);
+	auto result3 = minnVal3(p1, p2);
+	std::printf("minVal3: %i", result3);
 
-	minnVal4(5, 45);
+	static_assert(std::is_pointer_v<decltype(p1)>);
+	static_assert(IsPointer<decltype(p1)>);
+	
+	constexpr std::array val3 = {"sdad"};
+	const auto* p3 = &val3;
+	// this wont compile as expected since it does not match requires clause that it has to 3 way comparable !!
+	//minnVal3(p1, p3);
+
 
 }
