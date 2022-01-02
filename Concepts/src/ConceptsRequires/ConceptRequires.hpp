@@ -13,7 +13,12 @@ constexpr T maxxValue(T a, T b)
 }
 
 template<typename T>
-concept IsPointer = std::is_pointer_v<T>;
+concept IsPointer =  requires(T p)
+{
+	*p;
+	{p < p}->std::convertible_to<bool>;
+	p == nullptr;
+};
 
 template<typename T>
 constexpr T minnVal(T a, T b)
@@ -37,7 +42,7 @@ constexpr auto minnVal2(T a, T b)
 }
 
 // intellisense gives false error squigless
-constexpr auto minnVal3(IsPointer auto a, IsPointer auto b)
+constexpr auto minnVal3(IsPointer auto a, IsPointer auto b) 
 requires std::three_way_comparable_with<decltype(*a), decltype(*b)>
 {
 	return *b < *a ? *b : *a;

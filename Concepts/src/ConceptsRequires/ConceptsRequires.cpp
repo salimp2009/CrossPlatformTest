@@ -7,8 +7,8 @@ void ConceptsRequirest_Test()
 {
 	std::puts("--ConceptsRequirest_Test--");
 
-	const int val1 = 42;
-	const int val2 = 77;
+	constexpr int val1 = 42;
+	constexpr int val2 = 77;
 	
 	constexpr auto result = maxxValue(val1, val2);
 	std::printf("result maxxVal: %i\n", result);
@@ -19,13 +19,14 @@ void ConceptsRequirest_Test()
 	std::printf("minnVal: %i\n", result2);
 	minnVal(&val1, &val2);
 
-	const int* p1 = &val1;
-	const int* p2 = &val2;
+	const int*  p1 = &val1;
+	const int*  p2 = &val2;
 	
 	std::printf("minVal2: %i \n", minnVal2(p1, p2));
 
 	auto result3 = minnVal3(p1, p2);
-	std::printf("minVal3: %i", result3);
+	std::printf("minVal3; pointer version: %i \n", result3);
+	std::printf("minVal3: pointer, ref version: %i \n", minnVal3(p1, &val1));
 
 	static_assert(std::is_pointer_v<decltype(p1)>);
 	static_assert(IsPointer<decltype(p1)>);
