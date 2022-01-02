@@ -73,3 +73,16 @@ void printColl(IntegerCont auto const& coll)
 	}
 	std::puts("");
 }
+
+template<typename Cont, typename T>
+concept ContainerType = requires(Cont cont, T val)
+{
+	{cont.push_back(val)};
+};
+
+template<typename T1, ContainerType<T1> Cont>
+requires std::is_same_v<T1, typename Cont::value_type>
+constexpr void add(Cont& coll, const T1& t)
+{
+	coll.push_back(t);
+}

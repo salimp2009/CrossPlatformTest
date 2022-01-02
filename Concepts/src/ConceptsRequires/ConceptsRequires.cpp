@@ -36,5 +36,23 @@ void ConceptsRequirest_Test()
 	// this wont compile as expected since it does not match requires clause that it has to 3 way comparable !!
 	//minnVal3(p1, p3);
 
+}
+
+void RequirementExpression_Test()
+{
+	std::vector vec1 = { 1,2,3,4 };
+	constexpr std::array arr1 = { 1,2,3,4,5 };
+	
+	static_assert(ContainerType<std::remove_cvref_t<decltype(vec1)>, typename decltype(vec1)::value_type>);
+
+	static_assert(! ContainerType<std::remove_cvref_t<decltype(arr1)>, typename decltype(arr1)::value_type>);
+
+	add(vec1, 5);
+	// will not compile since it is not same as the type of vector; if std::is_convertible_t is used then floating point passes to due implicit conversion !!!
+	//add(vec1, 5.4f);
+	
+	// std::array does not have push_back() member function therefore will not compile
+	//add(arr1, 10);
+	
 
 }
