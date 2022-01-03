@@ -79,10 +79,11 @@ target_include_directories(ConceptsPCH  INTERFACE
 
 
 add_library(ConceptsTestLib
-		src/ConceptsTest.cpp
+		#src/ConceptsTest.cpp
         src/ConceptsRequires/ConceptRequires.hpp 
         src/ConceptsRequires/ConceptsRequires.cpp
-  )
+        src/ConceptsRequires/OverloadResolution.hpp
+)
 
 target_include_directories(ConceptsTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 

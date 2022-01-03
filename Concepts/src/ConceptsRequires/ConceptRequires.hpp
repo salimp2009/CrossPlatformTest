@@ -1,6 +1,8 @@
 #include "ConceptsPCH.hpp"
 
 void ConceptsRequirest_Test();
+void RequirementExpression_Test();
+void OverloadResolution_Concepts();
 
 template<typename T>
 concept NotRawPointer = ! std::is_pointer_v<T>;

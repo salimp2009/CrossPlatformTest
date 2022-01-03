@@ -4,6 +4,8 @@
 int main()
 {
 	ConceptsRequirest_Test();
+	RequirementExpression_Test();
+	OverloadResolution_Concepts();
 
 
 }

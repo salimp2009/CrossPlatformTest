@@ -1,5 +1,6 @@
 #include "ConceptsPCH.hpp"
 #include "ConceptRequires.hpp"
+#include "OverloadResolution.hpp"
 
 
 
@@ -40,6 +41,7 @@ void ConceptsRequirest_Test()
 
 void RequirementExpression_Test()
 {
+	std::puts("--ConceptsRequirest_Test--");
 	std::vector vec1 = { 1,2,3,4 };
 	constexpr std::array arr1 = { 1,2,3,4,5 };
 	
@@ -53,6 +55,17 @@ void RequirementExpression_Test()
 	
 	// std::array does not have push_back() member function therefore will not compile
 	//add(arr1, 10);
-	
+
+}
+
+void OverloadResolution_Concepts()
+{
+	std::puts("--OverloadResolution_Concepts--");
+
+	std::vector vec1 = { 1,2,3 };
+	std::vector<double> vec2;
+	addValue(vec1, 5);
+	addValue(vec2, 0.5f);
+	std::printf("floating point added: %f \n", vec2.back());
 
 }
