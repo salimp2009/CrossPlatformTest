@@ -38,6 +38,32 @@ void addValue2(Coll& cont, T&& value)
 	cont.push_back(std::forward<T>(value));
 }
 
+// Alternative supporting functions / variable to be able support push_back and insert for different type of containers
+template<typename T>
+constexpr bool SupportsPushBack = requires(T coll) { coll.push_back(std::declval<typename T::value_type>()); };
+
+template<typename T>
+concept As_SupportPushBack = requires(T coll) 
+{ 
+	coll.push_back(std::declval<typename T::value_type>());
+};
+
+// version to support both insert and pushback
+template<typename T, typename Coll>
+requires ConvertsWithoutNarrowing<T, typename Coll::value_type>
+void addValue3(Coll& cont, T&& value)
+{
+	if constexpr (requires {cont.push_back(value); })
+	{
+		cont.push_back(value);
+	}
+	else
+	{
+		cont.insert(value);
+	}
+}
+
+
 
 
 
