@@ -68,4 +68,9 @@ void OverloadResolution_Concepts()
 	addValue(vec2, 0.5f);
 	std::printf("floating point added: %f \n", vec2.back());
 
+	// example that does not allow narrowing; it allows implicit conversion but No Narrawing
+	addValue2(vec1, 25);
+	//this will not compile as it does not match the No Narrowing Criteria
+	//addValue2(vec1, 25.5);
+
 }

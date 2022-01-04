@@ -22,3 +22,23 @@ void addValue(Coll& cont, T&& value)
 }
 
 
+// concept for allowing implicit type conversion without Narrowing
+
+template<typename From, typename To>
+concept ConvertsWithoutNarrowing = std::convertible_to<From, To> && requires(From && x) 
+{
+	{std::type_identity_t<To[]>{std::forward<From>(x)}} -> std::same_as<To[1]>;
+};
+
+
+template<typename T, ContainerType<T> Coll>
+requires ConvertsWithoutNarrowing<T, typename Coll::value_type>
+void addValue2(Coll& cont, T&& value)
+{
+	cont.push_back(std::forward<T>(value));
+}
+
+
+
+
+
