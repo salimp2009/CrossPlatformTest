@@ -78,13 +78,12 @@ void addValue4(Coll& cont, T&& value)
 	}
 }
 
-// TODO: needs to be tested
 
 // concept of container that support both push_back and insert 
 template<typename Coll>
 concept PushBackContainer = SupportsPushBack<Coll> && requires(Coll cont)
 {
-	cont.insert(std::declval<typename Coll::value_type>());
+	cont.insert(cont.end(), std::declval<typename Coll::value_type>());
 };
 
 // concept of container that supports insert only; sets 
@@ -96,12 +95,14 @@ concept InsertContainer = requires(Coll cont)
 
 // constraint the function to accept a range; insert single or multiple values
 template<PushBackContainer Coll, std::ranges::input_range T>
+requires ConvertsWithoutNarrowing<std::ranges::range_value_t<T>, typename Coll::value_type>
 void addMultiValues(Coll& cont, T&& range)
 {
 	cont.insert(cont.end(), std::ranges::begin(range), std::ranges::end(range));
 }
 
 template<InsertContainer Coll, std::ranges::input_range T>
+requires ConvertsWithoutNarrowing<std::ranges::range_value_t<T>, typename Coll::value_type>
 void addMultiValues(Coll& cont, T&& range)
 {
 	cont.insert(std::ranges::begin(range), std::ranges::end(range));

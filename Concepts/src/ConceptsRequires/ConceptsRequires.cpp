@@ -77,4 +77,20 @@ void OverloadResolution_Concepts()
 
 	addValue3(vec1, 25);
 	addValue4(vec2, 45.5);
+
+	std::array arr1 = { 45, 56, 67 };
+	addMultiValues(vec1,arr1);
+	std::printf("%i \n", vec1.back());
+
+	std::array arr2 = { 45.f, 125.3f, 35.f };
+	// this does not compile since it will not satisfy the ConvertswithoutNarrowing concept
+	//addMultiValues(vec1, arr2);
+
+	std::set<int> setint = { 1,22,355,45 };
+	addMultiValues(setint, arr1);
+
+	// this does not compile since it will not satisfy the ConvertswithoutNarrowing concept
+	//addMultiValues(setint, arr2);
+
+
 }
