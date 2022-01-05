@@ -75,4 +75,6 @@ void OverloadResolution_Concepts()
 	//this will not compile as it does not match the No Narrowing Criteria
 	//addValue2(vec1, 25.5);
 
+	addValue3(vec1, 25);
+	addValue4(vec2, 45.5);
 }

@@ -63,6 +63,52 @@ void addValue3(Coll& cont, T&& value)
 	}
 }
 
+// version using concepts & if constexpr to support both insert and pushback
+template<typename T, typename Coll>
+requires ConvertsWithoutNarrowing<T, typename Coll::value_type>
+void addValue4(Coll& cont, T&& value)
+{
+	if constexpr (As_SupportPushBack<Coll>)
+	{
+		cont.push_back(value);
+	}
+	else
+	{
+		cont.insert(value);
+	}
+}
+
+// TODO: needs to be tested
+
+// concept of container that support both push_back and insert 
+template<typename Coll>
+concept PushBackContainer = SupportsPushBack<Coll> && requires(Coll cont)
+{
+	cont.insert(std::declval<typename Coll::value_type>());
+};
+
+// concept of container that supports insert only; sets 
+template<typename Coll>
+concept InsertContainer = requires(Coll cont)
+{
+	cont.insert(std::declval<typename Coll::value_type>());
+};
+
+// constraint the function to accept a range; insert single or multiple values
+template<PushBackContainer Coll, std::ranges::input_range T>
+void addMultiValues(Coll& cont, T&& range)
+{
+	cont.insert(cont.end(), std::ranges::begin(range), std::ranges::end(range));
+}
+
+template<InsertContainer Coll, std::ranges::input_range T>
+void addMultiValues(Coll& cont, T&& range)
+{
+	cont.insert(std::ranges::begin(range), std::ranges::end(range));
+}
+
+
+
 
 
 
