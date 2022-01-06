@@ -1,6 +1,7 @@
 #include "ConceptsPCH.hpp"
 #include "ConceptRequires.hpp"
 #include "OverloadResolution.hpp"
+#include "OverloadResOLD.hpp"
 
 
 
@@ -45,9 +46,8 @@ void RequirementExpression_Test()
 	std::vector vec1 = { 1,2,3,4 };
 	constexpr std::array arr1 = { 1,2,3,4,5 };
 	
-	static_assert(ContainerType<std::remove_cvref_t<decltype(vec1)>, typename decltype(vec1)::value_type>);
-
-	static_assert(! ContainerType<std::remove_cvref_t<decltype(arr1)>, typename decltype(arr1)::value_type>);
+	static_assert(ContainerType2<std::remove_cvref_t<decltype(vec1)>>);
+	static_assert(!ContainerType2<std::remove_cvref_t<decltype(arr1)>>);
 
 	add(vec1, 5);
 	// will not compile since it is not same as the type of vector; if std::is_convertible_t is used then floating point passes to due implicit conversion !!!
@@ -91,6 +91,16 @@ void OverloadResolution_Concepts()
 
 	// this does not compile since it will not satisfy the ConvertswithoutNarrowing concept
 	//addMultiValues(setint, arr2);
+}
 
+void OverloadResol_BeforeCPP20()
+{
+	std::puts("--OverloadResol_BeforeCPP20--");
+	std::vector vec1 = { 1,2,3 };
+	addOLDWay(vec1, 5);
+	std::printf("vec1 back: %i \n", vec1.back());
 
+	std::set<int> setint = { 1,22,355,45 };
+	addOLDWay(setint, 566);
+	std::printf("setint added value: %i \n", *setint.find(566));
 }

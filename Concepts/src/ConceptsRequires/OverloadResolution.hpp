@@ -7,14 +7,14 @@
 
 // the signatures of the overloaded function should match
 // otherwise the more constrained version for floating point will not be selected
-template<std::floating_point T, ContainerType<T> Coll>
+template<std::floating_point T, ContainerType2 Coll>
 void addValue(Coll& cont, T value)
 {
 	cont.push_back(value);
 }
 
 // if the function signatures needs to be different than the T should have contraint Not to Have Floating Point
-template<typename T, ContainerType<T> Coll>
+template<typename T, ContainerType2 Coll>
 requires (!std::floating_point<T>)
 void addValue(Coll& cont, T&& value)
 {
@@ -31,7 +31,7 @@ concept ConvertsWithoutNarrowing = std::convertible_to<From, To> && requires(Fro
 };
 
 
-template<typename T, ContainerType<T> Coll>
+template<typename T, ContainerType2 Coll>
 requires ConvertsWithoutNarrowing<T, typename Coll::value_type>
 void addValue2(Coll& cont, T&& value)
 {
@@ -39,11 +39,11 @@ void addValue2(Coll& cont, T&& value)
 }
 
 // Alternative supporting functions / variable to be able support push_back and insert for different type of containers
-template<typename T>
-constexpr bool SupportsPushBack = requires(T coll) { coll.push_back(std::declval<typename T::value_type>()); };
+//template<typename T>
+//constexpr bool SupportsPushBack = requires(T coll) { coll.push_back(std::declval<typename T::value_type>()); };
 
 template<typename T>
-concept As_SupportPushBack = requires(T coll) 
+concept SupportsPushBack = requires(T coll) 
 { 
 	coll.push_back(std::declval<typename T::value_type>());
 };
@@ -68,7 +68,7 @@ template<typename T, typename Coll>
 requires ConvertsWithoutNarrowing<T, typename Coll::value_type>
 void addValue4(Coll& cont, T&& value)
 {
-	if constexpr (As_SupportPushBack<Coll>)
+	if constexpr (SupportsPushBack<Coll>)
 	{
 		cont.push_back(value);
 	}
@@ -81,8 +81,9 @@ void addValue4(Coll& cont, T&& value)
 
 // concept of container that support both push_back and insert 
 template<typename Coll>
-concept PushBackContainer = SupportsPushBack<Coll> && requires(Coll cont)
+concept PushBackContainer = requires(Coll cont)
 {
+	cont.push_back(std::declval<typename Coll::value_type>());
 	cont.insert(cont.end(), std::declval<typename Coll::value_type>());
 };
 

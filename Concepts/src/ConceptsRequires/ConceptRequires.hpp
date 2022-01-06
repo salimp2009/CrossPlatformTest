@@ -3,6 +3,7 @@
 void ConceptsRequirest_Test();
 void RequirementExpression_Test();
 void OverloadResolution_Concepts();
+void OverloadResol_BeforeCPP20();
 
 template<typename T>
 concept NotRawPointer = ! std::is_pointer_v<T>;
@@ -76,13 +77,21 @@ void printColl(IntegerCont auto const& coll)
 	std::puts("");
 }
 
-template<typename Cont, typename T>
-concept ContainerType = requires(Cont cont, T val)
+// REFACTORED ; this is not a good way to define ; see ALTERNATIVE BELOW
+//template<typename Cont, typename T>
+//concept ContainerType = requires(Cont cont, T val)
+//{
+//	{cont.push_back(val)};
+//};
+
+// NOTE this is better than above; replaced the one above with this
+template<typename Cont>
+concept ContainerType2 = requires(Cont cont)
 {
-	{cont.push_back(val)};
+	{cont.push_back(std::declval<typename Cont::value_type>())};
 };
 
-template<typename T1, ContainerType<T1> Cont>
+template<typename T1, ContainerType2 Cont>
 requires std::is_same_v<T1, typename Cont::value_type>
 constexpr void add(Cont& coll, const T1& t)
 {
