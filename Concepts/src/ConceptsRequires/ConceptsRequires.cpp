@@ -103,4 +103,15 @@ void OverloadResol_BeforeCPP20()
 	std::set<int> setint = { 1,22,355,45 };
 	addOLDWay(setint, 566);
 	std::printf("setint added value: %i \n", *setint.find(566));
+
+	// example for using enable_if so NO floating point
+	addOLDWay2(vec1, 234);
+	
+	//will not compile
+	//addOLDWay2(vec1, 24.5);
+
+	// using std::void_t instead of enable_if to accept std::integral
+	// std::void_t corner case it does not work ; second function should not work 
+	addOLDWay3(vec1, 455);
+	addOLDWay3(vec1, 455.56);
 }
