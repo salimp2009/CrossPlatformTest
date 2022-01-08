@@ -7,5 +7,6 @@ int main()
 	RequirementExpression_Test();
 	OverloadResolution_Concepts();
 	OverloadResol_BeforeCPP20();
+	ConstraintsWithRequires();
 
 }

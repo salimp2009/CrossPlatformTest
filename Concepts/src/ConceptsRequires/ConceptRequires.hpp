@@ -4,6 +4,7 @@ void ConceptsRequirest_Test();
 void RequirementExpression_Test();
 void OverloadResolution_Concepts();
 void OverloadResol_BeforeCPP20();
+void ConstraintsWithRequires();
 
 template<typename T>
 concept NotRawPointer = ! std::is_pointer_v<T>;

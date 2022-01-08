@@ -83,7 +83,9 @@ add_library(ConceptsTestLib
         src/ConceptsRequires/ConceptRequires.hpp 
         src/ConceptsRequires/ConceptsRequires.cpp
         src/ConceptsRequires/OverloadResolution.hpp
- "src/ConceptsRequires/OverloadResOLD.hpp")
+        src/ConceptsRequires/OverloadResOLD.hpp 
+        src/ConceptsRequires/ConstraintSamples.hpp
+)
 
 target_include_directories(ConceptsTestLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 

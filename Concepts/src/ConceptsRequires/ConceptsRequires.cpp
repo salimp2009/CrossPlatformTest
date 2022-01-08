@@ -2,6 +2,7 @@
 #include "ConceptRequires.hpp"
 #include "OverloadResolution.hpp"
 #include "OverloadResOLD.hpp"
+#include "ConstraintSamples.hpp"
 
 
 
@@ -59,7 +60,6 @@ void RequirementExpression_Test()
 }
 
 
-
 void OverloadResolution_Concepts()
 {
 	std::puts("--OverloadResolution_Concepts--");
@@ -114,4 +114,17 @@ void OverloadResol_BeforeCPP20()
 	// std::void_t corner case it does not work ; second function should not work 
 	addOLDWay3(vec1, 455);
 	addOLDWay3(vec1, 455.56);
+}
+
+void ConstraintsWithRequires()
+{
+	std::puts("--ConstraintsWithRequires--");
+	std::array<int, 5> arr1 = { 1,2,3,4 };
+	SampleAdHoc(arr1);
+	
+	std::contiguous_iterator<decltype(arr1)::iterator>;
+	static_assert(sizeof(arr1) > 4);
+	std::is_same_v<typename decltype(arr1)::value_type, int>;
+	
+
 }
