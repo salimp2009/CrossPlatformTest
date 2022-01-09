@@ -66,24 +66,29 @@ void MetaProgramming_Test()
 
 	static_assert(not std::is_invocable_v<decltype(blargLamda), Bar&>);
 
-}
+	std::puts("");
 
-std::string str1 = "my function";
+}
 
 void MetaProgLinearSearch()
 {
+	std::puts("---------------------------------");
 	std::puts("--MetaProgLinearSearch--");
 
 	auto prettyFuncName = std::string_view(__PRETTY_FUNCTION__);
 	std::printf("__PRETTY_FUNCTION__ = %s \n", prettyFuncName.data());
 	std::printf("__FUNCTION__		 = %s \n", __FUNCTION__);
 
-	auto fn1 = []() { return std::string_view{ str1 }; };
+	PackImpl< int, char, float, double, std::string_view> mypack2{};
+	auto result = mypack2.contains(nameof<unsigned>);
+	// expected false; prints false
+	printf("IsInPack; nameof<unsigned>: %s \n", (result ? "true" : "false"));
 
-	PackImpl< void(*)(int), int(*)(int), void(*)(), std::string_view(*)(), decltype(fn1) > mypack{};
-	// this does not give correct result ; need to check but i did not quite like the implementation :)
-	auto result = mypack.contains([]() { return std::string_view{ str1 }; });
-	printf("IsInPack CompileTimeCheck thru Linear Search: %s \n", (result ? "true" : "false"));
+	result = mypack2.contains(nameof<int>);
+	printf("IsInPack; nameof<int>: %s \n", (result ? "true" : "false"));
+	
+	std::puts("---------------------------------");
+	std::puts("");
 
 }
 
