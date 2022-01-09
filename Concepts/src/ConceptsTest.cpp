@@ -8,5 +8,7 @@ int main()
 	OverloadResolution_Concepts();
 	OverloadResol_BeforeCPP20();
 	ConstraintsWithRequires();
+	ConstraintsSamples();
+
 
 }

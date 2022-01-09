@@ -126,5 +126,19 @@ void ConstraintsWithRequires()
 	static_assert(sizeof(arr1) > 4);
 	std::is_same_v<typename decltype(arr1)::value_type, int>;
 	
+}
 
+void ConstraintsSamples()
+{
+	std::puts("--ConstraintsSamples--");
+	static_assert(IsIntegral<char>);
+	static_assert(IsIntegral<int>);
+
+	static_assert(not IsIntegral<int*>);
+	static_assert(not IsIntegral<float>);
+	static_assert(not IsIntegral<std::string>);
+
+	static_assert(not std::integral<char*>);
+	static_assert(not std::integral<int*>);
+	static_assert(not std::integral<char[]>);
 }
