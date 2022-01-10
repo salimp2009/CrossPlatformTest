@@ -42,6 +42,52 @@ static_assert(not std::integral<std::optional<int>>);
 static_assert(IsPointerToIntegral<std::optional<int>>);
 
 
+// Sample requires Expressions
+
+template<typename Coll>
+concept  SubTypeIsPair = requires {
+	typename Coll::value_type::first_type;
+	typename Coll::value_type::second_type;
+};
+
+template<typename T>
+concept AddSubtractSupport = requires (T x, T y)
+{
+	x + y;
+	x - y;
+};
+
+// the sub types can be used to validate
+template<typename Coll>
+concept SubTypeValid = requires (typename Coll::value_type val)
+{
+	true;
+};
+
+template<typename T1, typename T2>
+concept Sample1 = requires(T1 val, T2 p)
+{
+	*p;				// operator* supported for T2
+	p[0];			//operator[] has to be supported for int as index
+	p->value();		// calling member function value()
+	*p > val;		// comparision operator valid between T1 and result operator* (not T2)
+	p == nullptr;  // type T2 is comparable with nullptr (the type of nullptr is nullptr_t)
+
+	// *p > val || p == nullptr; // this check only combines the result of both expression ; it does not imply either of those to be supported
+
+};
+
+template<typename T1, typename T2>
+concept Sample2 = requires(T1 val, T2 p) { *p > val; } || requires (T2 p) { p == nullptr; };
+
+// this wont work on unique_trs directly because std::equality_comparable_with requires  std::common_reference_with and that requires is_convertible_v<_From, _To>
+template<typename T1, typename T2>
+concept Sample3 = requires(T1 val, T2 p) { *p > val; } || requires { std::equality_comparable_with<T2, std::nullptr_t>; };
+
+static_assert(std::equality_comparable_with< int*, std::nullptr_t>);
+static_assert(std::equality_comparable_with<std::unique_ptr<int>::pointer, std::nullptr_t>);
+
+
 
 
 

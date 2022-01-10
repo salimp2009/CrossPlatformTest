@@ -141,4 +141,7 @@ void ConstraintsSamples()
 	static_assert(not std::integral<char*>);
 	static_assert(not std::integral<int*>);
 	static_assert(not std::integral<char[]>);
+
+	static_assert(SubTypeValid<std::vector<int>>);
+	static_assert(SubTypeIsPair<std::vector<std::pair<bool, int>>>);
 }

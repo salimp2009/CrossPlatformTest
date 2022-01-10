@@ -133,6 +133,7 @@ void DecltypeAutoUseCases()
 	static_assert(std::is_rvalue_reference_v<decltype(str2)>);			// true
 
 	static_assert(std::is_same_v<std::remove_reference_t<decltype(str2)>, std::string>);
+	
 }
 
 void DecltypeAutoUseCases_Expression()
