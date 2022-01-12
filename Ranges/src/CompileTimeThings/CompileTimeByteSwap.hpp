@@ -4,7 +4,7 @@
 
 #if defined (_MSC_VER)
 	#include<Winsock.h>
-#else
+#elif __linux__ 
 	#include <arpa/inet.h>
 #endif
 

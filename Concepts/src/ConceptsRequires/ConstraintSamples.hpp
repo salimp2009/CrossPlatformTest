@@ -84,11 +84,25 @@ concept Sample2 = requires(T1 val, T2 p) { *p > val; } || requires (T2 p) { p ==
 template<typename T1, typename T2>
 concept Sample3 = requires(T1 val, T2 p) { *p > val; } || requires { std::equality_comparable_with<T2, std::nullptr_t>; };
 
-static_assert(std::equality_comparable_with< int*, std::nullptr_t>);
-static_assert(std::equality_comparable_with<std::unique_ptr<int>::pointer, std::nullptr_t>);
+// this is does not imply T to be integral ; only implies std::integral<T> is valid;
+template<typename T>
+concept IntegralTypeWrong = requires { std::integral<T>; };
 
+// this is OK 
+static_assert(IntegralTypeWrong<int>);
+// this test should fail for float
+static_assert(IntegralTypeWrong<float>);
 
+// this implies T to be integral
+template<typename T>
+concept IntegralTypeRight = requires { requires std::integral<T>; };
 
+// this implies T to be integral
+template<typename T>
+concept IntegralTypeRight2 = std::integral<T>;
 
+static_assert(IntegralTypeRight<int>);
+static_assert(not IntegralTypeRight<float>);
 
-
+static_assert(IntegralTypeRight2<int>);
+static_assert(not IntegralTypeRight2<float>);
