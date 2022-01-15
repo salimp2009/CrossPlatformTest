@@ -3,7 +3,7 @@
 void ConceptsRequirest_Test();
 void RequirementExpression_Test();
 void OverloadResolution_Concepts();
-void OverloadResol_BeforeCPP20();
+void Overl0oadResol_BeforeCPP20();
 void ConstraintsWithRequires();
 void ConstraintsSamples();
 
