@@ -12,7 +12,7 @@ public:
 	constexpr T& operator*() const& { return *data; }
 
 	constexpr auto operator<=>(const uniquePtr&) const = default;
-	constexpr auto operator==(nullptr_t) const { return  data == nullptr; }
+	constexpr auto operator==(std::nullptr_t) const { return  data == nullptr; }
 
 
 private:

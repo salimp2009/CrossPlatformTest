@@ -4,9 +4,9 @@
 
 #if defined (_MSC_VER)
 	#include<Winsock.h>
-#elif __linux__ 
+#elif defined( __linux__ )
 	#include <arpa/inet.h>
-#endif
+
 
 
 constexpr auto ReverseBytes(std::integral auto value)
@@ -61,4 +61,4 @@ static_assert(ByteSwap(std::uint64_t(0x123456789ABCDEF0)) == 0xF0DEBC9A78563412)
 static_assert(ByteSwap(std::uint32_t(0x12345678)) == 0x78563412);
 static_assert(ByteSwap(std::uint16_t(0x1234)) == 0x3412);
 static_assert(ByteSwap(std::uint8_t(0x12)) == 0x12);
-
+#endif

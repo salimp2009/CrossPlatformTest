@@ -38,7 +38,7 @@ if(MSVC)
     # This makes alternative tokens (not, and, ...) as actual keywords and
     # enables more conformant C++ in general
     add_definitions(/permissive-)
-    #add_definitions(/std:c++latest)
+    add_definitions(/std:c++latest)
 
     
 else()
