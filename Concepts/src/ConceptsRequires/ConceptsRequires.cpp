@@ -147,4 +147,6 @@ void ConstraintsSamples()
 
 	static_assert(std::equality_comparable_with< int*, std::nullptr_t>);
 	static_assert(std::equality_comparable_with<std::unique_ptr<int>::pointer, std::nullptr_t>);
+
+
 }

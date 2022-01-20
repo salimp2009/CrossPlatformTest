@@ -3,7 +3,7 @@
 void ConceptsRequirest_Test();
 void RequirementExpression_Test();
 void OverloadResolution_Concepts();
-void Overl0oadResol_BeforeCPP20();
+void OverloadResol_BeforeCPP20();
 void ConstraintsWithRequires();
 void ConstraintsSamples();
 
@@ -18,10 +18,10 @@ constexpr T maxxValue(T a, T b)
 }
 
 template<typename T>
-concept IsPointer =  requires(T p)
+concept IsPointer =  requires(T p, T p1)
 {
 	*p;
-	{p < p}->std::convertible_to<bool>;
+	{p < p1}->std::convertible_to<bool>;
 	p == nullptr;
 };
 
@@ -46,7 +46,7 @@ constexpr auto minnVal2(T a, T b)
 	return *b < *a ? *b : *a;
 }
 
-// intellisense gives false error squigless
+// intellisense gives false error squiggles
 constexpr auto minnVal3(IsPointer auto a, IsPointer auto b) 
 requires std::three_way_comparable_with<decltype(*a), decltype(*b)>
 {

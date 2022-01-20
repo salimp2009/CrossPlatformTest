@@ -88,7 +88,7 @@ concept Sample3 = requires(T1 val, T2 p) { *p > val; } || requires { std::equali
 template<typename T>
 concept IntegralTypeWrong = requires { std::integral<T>; };
 
-// this is OK 
+// this is OK
 static_assert(IntegralTypeWrong<int>);
 // this test should fail for float
 static_assert(IntegralTypeWrong<float>);
@@ -106,3 +106,24 @@ static_assert(not IntegralTypeRight<float>);
 
 static_assert(IntegralTypeRight2<int>);
 static_assert(not IntegralTypeRight2<float>);
+
+template<typename T>
+concept TypeRequirementWrong = requires
+{
+	// this is not valid
+	//typename int;
+
+	// these are valid
+	requires std::is_same_v<T, int>;
+	typename T::value_type;
+	typename T::size_type;
+	typename T::allocator_type;
+	typename T::iterator;
+	typename T::const_iterator;
+};
+
+template<typename T>
+concept ReferenceType = requires(T&)
+{
+	true;
+};
