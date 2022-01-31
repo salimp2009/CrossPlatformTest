@@ -82,7 +82,8 @@ concept Sample2 = requires(T1 val, T2 p) { *p > val; } || requires (T2 p) { p ==
 
 // this wont work on unique_trs directly because std::equality_comparable_with requires  std::common_reference_with and that requires is_convertible_v<_From, _To>
 template<typename T1, typename T2>
-concept Sample3 = requires(T1 val, T2 p) { *p > val; } || requires { std::equality_comparable_with<T2, std::nullptr_t>; };
+concept Sample3 = requires(T1 val, T2 p) { *p > val; } ||
+                  requires { std::equality_comparable_with<T2, std::nullptr_t>; };
 
 // this is does not imply T to be integral ; only implies std::integral<T> is valid;
 template<typename T>
@@ -127,3 +128,21 @@ concept ReferenceType = requires(T&)
 {
 	true;
 };
+
+// this does not check if hash for type T is valid or not
+// because std::hash generate a value
+template<typename T>
+concept HashIsValidWrong = requires { typename std::hash<T>;};
+
+// this check if std::hash generates a value for type
+template<typename T>
+concept HashIsValidCorrect = requires { {std::hash<T>{}} ->std::same_as<std::size_t>;};
+
+struct MyWrongType {};
+
+// this should fail if the concept was checking correctly;
+// if std::hash for the given type is valid or not
+static_assert(HashIsValidWrong<MyWrongType>);
+
+// this works correct therefore assert fails
+static_assert(! HashIsValidCorrect<MyWrongType>);

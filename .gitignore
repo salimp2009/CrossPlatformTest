@@ -1,10 +1,17 @@
-
 # Any log files
 *.log
 
-
-# Visual Studio files and folder
+# Visual Studio/Code files and folder
 .vs/
+.vscode
 
-#CMake out/build folder ; check if this is need
-out/
+#Clion specific
+cmake-build-debug
+cmake-build-release
+cmake-build-*
+.idea
+
+#typical Cmake build
+build
+#vs cmake builds
+out

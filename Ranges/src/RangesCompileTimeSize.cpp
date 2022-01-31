@@ -39,7 +39,7 @@ void RangesCompileTimeSize()
 }
 
 
-// Example from Chris Csuiak to write a Ardunio project
+// Example from Chris Cusiak to write a Ardunio project
 #if defined (__GNUG__)  || !defined _MSC_VER && !defined(__clang__)
 void LambdaVariadicCapture_ContEval()
 {
